@@ -10,10 +10,10 @@ Play chess against Stockfish (WASM) with AI-powered move coaching and analysis.
 - **Chess logic**: `chess.js` (board state, move validation, PGN/FEN)
 - **Board UI**: `react-chessboard` v5
 - **Icons**: `lucide-react`
-- **AI coaching**: Multi-provider — supports Anthropic, OpenAI, Google, DeepSeek APIs + local CLI tools (Claude Code, Codex, Gemini CLI)
+- **AI coaching**: Multi-provider — supports Anthropic, OpenAI, Google, DeepSeek APIs + local AI tools (Claude Code, Codex, Gemini CLI)
 - **SaaS integrations**: `@saas-maker/*` (feedback widget, analytics, testimonials, changelog)
 - **Deployment**: Vercel (serverless function at `api/coach.ts` + static SPA)
-- **Local dev server**: Express 5 (`server/index.mjs`) — CLI-to-HTTP bridge for local AI tools
+- **Local dev server**: Express 5 (`server/index.mjs`) — local AI server for CLI tools
 
 ## Architecture
 
@@ -48,9 +48,9 @@ chess/
 
 ### How frontend/backend connect
 
-- **Local dev**: Vite proxies `/api` to `http://localhost:3456` (Express CLI bridge). `pnpm dev` starts both.
+- **Local dev**: Vite proxies `/api` to `http://localhost:3456` (Express local AI server). `pnpm dev` starts both.
 - **Cloud AI (prod)**: Frontend POSTs to `/api/coach` (Vercel serverless fn) which proxies to upstream AI APIs.
-- **Local AI (dev)**: Frontend POSTs to `/api/chat` (Express CLI bridge) which spawns `claude`/`codex`/`gemini` CLI and streams back SSE.
+- **Local AI (dev)**: Frontend POSTs to `/api/chat` (Express local AI server) which spawns `claude`/`codex`/`gemini` CLI and streams back SSE.
 - **Stockfish**: Runs entirely client-side in a Web Worker.
 
 ### State management
@@ -69,9 +69,9 @@ chess/
 ## Commands
 
 ```bash
-pnpm dev              # Start Vite + Express CLI bridge (both concurrently)
+pnpm dev              # Start Vite + Express local AI server (both concurrently)
 pnpm dev:frontend     # Vite only (no local AI)
-pnpm server           # Express CLI bridge only
+pnpm server           # Express local AI server only
 pnpm build            # Production build (Vite)
 pnpm preview          # Preview production build
 ```
