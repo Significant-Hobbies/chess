@@ -9,7 +9,8 @@
     "server": "cd server && npm install --silent && node index.mjs",
     "build": "vite build",
     "preview": "vite preview",
-    "prepare": "husky"
+    "prepare": "husky",
+    "deploy": "pnpm build && wrangler pages deploy dist/ --project-name=chess"
   },
   "dependencies": {
     "@saas-maker/changelog-widget": "0.2.1",
@@ -25,6 +26,9 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.59.1",
+    "@saas-maker/eslint-config": "^1.0.1",
+    "@saas-maker/prettier-config": "^1.0.0",
+    "@saas-maker/tsconfig": "^1.0.0",
     "@tailwindcss/vite": "^4.2.4",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
@@ -33,6 +37,8 @@
     "husky": "^9.1.7",
     "tailwindcss": "^4.2.4",
     "typescript": "^6.0.3",
-    "vite": "^8.0.10"
-  }
+    "vite": "^8.0.10",
+    "wrangler": "^4.85.0"
+  },
+  "prettier": "@saas-maker/prettier-config"
 }
