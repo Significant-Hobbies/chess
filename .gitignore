@@ -13,3 +13,7 @@ dist-ssr
 
 .DS_Store
 .vercel
+
+# fallow cache
+.fallow/
+cache.bin
