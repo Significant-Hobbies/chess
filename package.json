@@ -8,7 +8,8 @@
     "dev:frontend": "vite",
     "server": "cd server && npm install --silent && node index.mjs",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "husky"
   },
   "dependencies": {
     "@saas-maker/changelog-widget": "workspace:*",
@@ -29,6 +30,7 @@
     "@types/react-dom": "19",
     "@vercel/node": "5.7.13",
     "@vitejs/plugin-react": "6.0.1",
+    "husky": "^9.1.7",
     "tailwindcss": "4",
     "typescript": "6.0.3",
     "vite": "8.0.10"
