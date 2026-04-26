@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Grandmaster | The Art of Chess</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        parchment: "#FDFBF7",
+                        wood: "#4A3728",
+                        stone: {
+                            50: "#F8F5F0",
+                            100: "#F1EDE6",
+                            200: "#E6E0D5",
+                            300: "#D4CBB8",
+                            400: "#B8AC94",
+                            500: "#9A8C73",
+                            600: "#7E7058",
+                            700: "#635845",
+                            800: "#4A3728",
+                            900: "#2D2419",
+                            950: "#1A140E",
+                        }
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "headline": ["Noto Serif", "serif"],
+                        "display": ["Noto Serif", "serif"],
+                        "body": ["Plus Jakarta Sans", "sans-serif"],
+                        "label": ["Plus Jakarta Sans", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+    display: inline-block;
+    line-height: 1
+    }
+.wood-texture {
+    background-color: #4A3728;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAnac-xVNVlpd_DVc-hEYDh6G-0c4QQnDyaSey5-wCg9WDaYGFn_3k27h5oCVJg9qO3h2n6u25d9xDog9NJSiikxbKp4-RXfDdsHS2CzJHdI_yCg6mCM_Dz-GiRiUeAo1euSsQbDUDe-raWnKt9-sNG2-zs1KKHe92z8mGpagA3WaOCaY7OUP_q7MtRfNQLXLVR7MgMMy6SdniZp7R2TE5EVfoHpHFdKzUOfeg1KmrWZkmijAggzmyrJa_fXCflhZF6A37w9qhjNZ6E)
+    }
+.parchment-texture {
+    background-color: #FDFBF7;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBUPe6Xwj4Hvk6DwLeJ0L26TpLMYcNyVOTpAtB4pPDdTEXY4pJWot-f-01hnVj7e81KCTeA5QAOEapywrI3ORAlz_rMrc94CDkZBjYgKe7Hx-cYo25EgukPZYjol_CqczD18N6KvdOB6iy98rswvt4AZG2zUuQq3Ik8_p-z7nX4tlRJeQ7vrbYON-0i7YV3bRcOtSOZyTCEJw768Y9BTsy-dq9d02zSD-UuW06oX2obEauuQN1GKX4itsdE785ry3kNDjwVKHEovgwB)
+    }
+.chess-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr)
+    }</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-parchment font-body text-stone-800 antialiased overflow-x-hidden">
+<!-- TopAppBar -->
+<nav class="fixed w-full z-50 bg-[#FDFBF7] dark:bg-stone-950 border-b border-stone-200 dark:border-stone-800">
+<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between w-full">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-stone-800 dark:text-stone-200 text-2xl">grid_view</span>
+<span class="text-2xl font-serif italic text-[#4A3728] dark:text-stone-200">Grandmaster</span>
+</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-stone-900 dark:text-stone-50 font-bold border-b-2 border-[#4A3728] dark:border-stone-200 pb-1 transition-colors duration-200" href="#">Home</a>
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-stone-900 dark:hover:text-stone-50 transition-colors duration-200" href="#">Puzzles</a>
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-stone-900 dark:hover:text-stone-50 transition-colors duration-200" href="#">Rankings</a>
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-stone-900 dark:hover:text-stone-50 transition-colors duration-200" href="#">Theory</a>
+</div>
+<button class="bg-[#4A3728] text-white px-6 py-2.5 rounded-full font-label font-medium scale-95 hover:scale-100 transition-transform duration-150">
+                Play Now
+            </button>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="pt-32 pb-20 px-6 overflow-hidden">
+<div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+<div class="space-y-8">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-stone-200 text-stone-500 text-xs font-label uppercase tracking-widest">
+<span class="w-2 h-2 rounded-full bg-stone-400"></span>
+                    Elegance in Strategy
+                </div>
+<h1 class="font-display text-5xl md:text-7xl text-stone-900 leading-[1.1] tracking-tight">
+                    Master the <span class="italic">Art</span> of the 64 Squares.
+                </h1>
+<p class="text-stone-600 text-lg md:text-xl max-w-xl leading-relaxed">
+                    Experience chess as it was intended: a pure, distraction-free pursuit of excellence. Join a community that values deep thought over quick moves.
+                </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<button class="bg-[#4A3728] text-white px-8 py-4 rounded-lg font-label font-bold flex items-center gap-3 hover:shadow-xl transition-all">
+                        Play Now
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+<button class="border border-stone-300 text-stone-800 px-8 py-4 rounded-lg font-label font-bold hover:bg-stone-100 transition-all">
+                        View Rankings
+                    </button>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -inset-4 bg-stone-200/50 blur-3xl rounded-full -z-10"></div>
+<div class="aspect-square bg-stone-100 p-4 rounded-xl shadow-2xl shadow-stone-300/50 border border-stone-200">
+<div class="chess-grid h-full w-full rounded overflow-hidden shadow-inner">
+<!-- Chessboard Visualization (Simplified) -->
+<div class="bg-stone-200 p-2 relative">
+<img class="w-full h-full object-cover rounded opacity-40 mix-blend-multiply" data-alt="Close up high angle of a white wooden chess knight on a clean modern chessboard with soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9YMGOjRhEBje4XzGe-QcSk3EFuALyaaeDNiYpWrS-SSbvI_ue2w1Q8wAFXm1AwOZlsrNJopCaSYwU7dyl2QzSqDu0ZhNeJdBtCbyg-NnJ5GjsTlvFVIoLZ_yERlLmyNR-WcCuu9WyBP3QAQ6V_Xm5KAvAaJHCeYjglMBK1YfdNpRVVXivuWpsk8aXkPkjC67ABuzgFRsjPP1UMw-299NvLCahUJmYlbTOxFScb2bK0yufU_ecUofYfjv16aUBQsZYtCEeUQEyPW_W"/>
+</div>
+<div class="bg-stone-50"></div>
+<div class="bg-stone-200"></div>
+<div class="bg-stone-50"></div>
+<div class="bg-stone-200"></div>
+<div class="bg-stone-50"></div>
+<div class="bg-stone-200"></div>
+<div class="bg-stone-50"></div>
+<div class="bg-stone-50"></div>
+<div class="bg-stone-200"></div>
+<div class="bg-stone-50"></div>
+<div class="bg-stone-200 relative group">
+<div class="absolute inset-0 bg-stone-800 opacity-0 group-hover:opacity-10 transition-opacity"></div>
+</div>
+<div class="bg-stone-50"></div>
+<div class="bg-stone-200"></div>
+<div class="bg-stone-50"></div>
+<div class="bg-stone-200"></div>
+<!-- ... (Skipping full board for brevity, focusing on the visual pattern) -->
+<div class="bg-stone-200"></div><div class="bg-stone-50"></div><div class="bg-stone-200"></div><div class="bg-stone-50"></div><div class="bg-stone-200"></div><div class="bg-stone-50"></div><div class="bg-stone-200"></div><div class="bg-stone-50"></div>
+<div class="bg-stone-50"></div><div class="bg-stone-200"></div><div class="bg-stone-50"></div><div class="bg-stone-200"></div><div class="bg-stone-50"></div><div class="bg-stone-200"></div><div class="bg-stone-50"></div><div class="bg-stone-200"></div>
+<div class="bg-stone-200"></div><div class="bg-stone-50"></div><div class="bg-stone-200"></div><div class="bg-stone-50"></div><div class="bg-stone-200"></div><div class="bg-stone-50"></div><div class="bg-stone-200"></div><div class="bg-stone-50"></div>
+<div class="bg-stone-50"></div><div class="bg-stone-200"></div><div class="bg-stone-50"></div><div class="bg-stone-200"></div><div class="bg-stone-50"></div><div class="bg-stone-200"></div><div class="bg-stone-50"></div><div class="bg-stone-200"></div>
+<div class="bg-stone-200"></div><div class="bg-stone-50"></div><div class="bg-stone-200"></div><div class="bg-stone-50"></div><div class="bg-stone-200"></div><div class="bg-stone-50"></div><div class="bg-stone-200"></div><div class="bg-stone-50"></div>
+<div class="bg-stone-50"></div><div class="bg-stone-200"></div><div class="bg-stone-50"></div><div class="bg-stone-200"></div><div class="bg-stone-50"></div><div class="bg-stone-200"></div><div class="bg-stone-50"></div><div class="bg-stone-200"></div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Daily Puzzles Bento Section -->
+<section class="bg-stone-100 py-24 px-6 border-y border-stone-200">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+<div class="space-y-4">
+<h2 class="font-display text-4xl text-stone-900 italic">Daily Puzzles</h2>
+<p class="text-stone-600 max-w-md">Sharpen your intuition with curated tactical challenges from historic matches.</p>
+</div>
+<a class="text-[#4A3728] font-bold border-b border-[#4A3728] pb-1 hover:text-stone-600 transition-colors" href="#">Browse all puzzles</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Main Puzzle Card -->
+<div class="md:col-span-2 bg-white rounded-xl shadow-sm border border-stone-200 overflow-hidden flex flex-col md:flex-row">
+<div class="md:w-1/2 p-1 bg-stone-200">
+<div class="aspect-square bg-stone-50 relative group cursor-pointer overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A clean overhead shot of a chess position with dark wooden pieces on a light stone board, morning sunlight casting long shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6jFVgdSL7LYRFMpOPFneo2SmfpS1nwHf4JlBwGhpPvUaVJeqmrV_PcR18yBuslxANTlKyAB_znteaCHNsgS_FQGkiwxWRFH_q57cU0qvs-gRcqgtiS4PR7ofsZR7hUMwoQ51vm_zLAf27OEarJB0lWhGttN_u5878QYNMq_lP1TPyZYkzXt9rNs5qdEuYSnsBNJKVuAgtymsQiNmDk9rPCfaGlm_Nh9tJURSTJDDKAYQiQdVUFgOajIgMZwJVlrWuRym35AhRjBsC"/>
+<div class="absolute inset-0 bg-stone-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="bg-white text-[#4A3728] px-6 py-2 rounded font-label font-bold">Solve Position</span>
+</div>
+</div>
+</div>
+<div class="md:w-1/2 p-8 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 text-amber-700 mb-4">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold uppercase tracking-widest">Expert Tier</span>
+</div>
+<h3 class="font-display text-2xl mb-4 text-stone-900">The Kasparov Gambit</h3>
+<p class="text-stone-500 leading-relaxed mb-6">White to move. Find the continuation that leads to a winning material advantage in three moves.</p>
+</div>
+<div class="flex items-center justify-between pt-6 border-t border-stone-100">
+<div class="flex gap-4">
+<div class="text-center">
+<p class="text-[10px] uppercase text-stone-400 font-bold">ELO</p>
+<p class="font-serif font-bold text-stone-800">2450</p>
+</div>
+<div class="text-center">
+<p class="text-[10px] uppercase text-stone-400 font-bold">SOLVES</p>
+<p class="font-serif font-bold text-stone-800">1.2k</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-stone-300">history_edu</span>
+</div>
+</div>
+</div>
+<!-- Secondary Small Puzzle -->
+<div class="bg-stone-50 border border-stone-200 rounded-xl p-8 flex flex-col justify-between">
+<div class="space-y-4">
+<span class="text-xs font-bold text-stone-400 uppercase tracking-widest">Quick Tactic</span>
+<h4 class="font-display text-xl text-stone-800">Sacrifice at f7</h4>
+<p class="text-stone-500 text-sm">A classic bishop sacrifice pattern to expose the king. 450 solves today.</p>
+</div>
+<div class="mt-8 relative aspect-video rounded-lg overflow-hidden border border-stone-200">
+<img class="w-full h-full object-cover" data-alt="Macro photo of a white chess queen standing tall against a blurred background of dark opponent pieces" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAip4UK46nG0jhz3AumKnoiALg58MdHY_7JsuwNCNF0bn5jZaVoDFD1NfZkMh85nNH0deG0lHMS7WNPfLMv8UPuud0MkGGUG_KwOFGkPn7-NviZwXLkIyr8t2wmmN_UwDNbP9liJyDlCeS2fxYyB3yFZCnniVw_pHrXFwz347dwRqGS-zQRcD73Rso2ipisVVVsig1fk9deZGAN1ZJY3jSv53X-C5XASbsmXA9w95yCR94w1BYOCp6sIpGzXpe1FYX7fpSGFjlnA4vQ"/>
+<div class="absolute inset-0 bg-stone-900/20"></div>
+</div>
+<button class="w-full mt-6 py-3 border border-stone-300 rounded text-stone-700 font-label font-bold text-sm hover:bg-stone-200 transition-colors">
+                        Launch Puzzles
+                    </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Ranked Ladder Section -->
+<section class="py-24 px-6 bg-parchment parchment-texture">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-16 space-y-4">
+<h2 class="font-display text-4xl text-stone-900 tracking-tight">The Grandmaster's Ladder</h2>
+<div class="h-1 w-24 bg-[#4A3728] mx-auto"></div>
+<p class="text-stone-600 max-w-2xl mx-auto">The hierarchy of tactical excellence. Only the top 0.1% earn the right to be called Grandmaster.</p>
+</div>
+<div class="bg-white rounded-xl shadow-xl border border-stone-200 overflow-hidden">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-stone-50 border-b border-stone-200 text-stone-400 text-xs font-bold uppercase tracking-widest text-left">
+<th class="px-8 py-5">Rank</th>
+<th class="px-8 py-5">Player</th>
+<th class="px-8 py-5">Status</th>
+<th class="px-8 py-5">Win Rate</th>
+<th class="px-8 py-5 text-right">ELO Rating</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-stone-100 font-serif">
+<tr class="hover:bg-stone-50 transition-colors group">
+<td class="px-8 py-6 text-stone-400 font-bold">01</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-stone-200 overflow-hidden ring-2 ring-[#4A3728] ring-offset-2">
+<img class="w-full h-full object-cover" data-alt="Portrait of a focused man with a thoughtful expression in a dark studio setting with soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbnRRhjzo9x9zsLKnt9U5neRCwGMIQIpwWNJu2qkBaVZhjCuO28ox9RLet5IXEJH-o1TtepBehmmfNBVDHzWX1Qs9C9l7npRrreKN_zJl3sJ3YlrBSGc6RegZ9e2ZKKLKM6gfff9Akz1N0JhE3a8Gax6nrh9QAeyFg_dyr6YmIren9xFax4ZcJHbTnzZVTyw0nzVAke48Ojl718qWdnWFu-tngo-jrcK8GB-IZrTtH5C0CVxSCHGDmzZRNv9eM9waTn08gNk_bZTjN"/>
+</div>
+<div>
+<p class="text-stone-900 font-bold font-body">Magnus V.</p>
+<p class="text-xs text-stone-400 font-body">Grandmaster since 2018</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="inline-flex items-center gap-1.5 py-0.5 px-2.5 rounded-full text-xs font-bold bg-green-50 text-green-700 font-body">
+<span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                    Online
+                                </span>
+</td>
+<td class="px-8 py-6 text-stone-600 font-body">72.4%</td>
+<td class="px-8 py-6 text-right font-bold text-[#4A3728] text-xl">2842</td>
+</tr>
+<tr class="hover:bg-stone-50 transition-colors group">
+<td class="px-8 py-6 text-stone-400 font-bold">02</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-stone-200 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a sophisticated woman with an intense gaze against a minimalist gray background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJMi8wacSbjz667TasJTrDA-DZL9yuKZcX2cLIEAk73ckZDWhHoNfMnBkfpANbI9KRZN5LC0u6zyZX_5Sr_XpOglPnm3_Ti9sMUZA-FyaHAl_Raq3XH87UfoErHebzDIXmNwiDO4-lD_uIA4cKDbPaIqruyDqxCbgpsSOeu-8yzA3q4lybYX-ny8p9Cunk8sHOAxM3uEuFX09bQX7NhzsbgSf-SFPc5Mt61hh6_oQwBHl59_r3ZdxzJGuI1i3_XPFtwvotbVeGQEcn"/>
+</div>
+<div>
+<p class="text-stone-900 font-bold font-body">Elena K.</p>
+<p class="text-xs text-stone-400 font-body">Tactical Specialist</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="inline-flex items-center gap-1.5 py-0.5 px-2.5 rounded-full text-xs font-bold bg-stone-100 text-stone-500 font-body">
+<span class="w-1.5 h-1.5 rounded-full bg-stone-400"></span>
+                                    Offline
+                                </span>
+</td>
+<td class="px-8 py-6 text-stone-600 font-body">68.1%</td>
+<td class="px-8 py-6 text-right font-bold text-stone-800 text-xl">2795</td>
+</tr>
+<tr class="hover:bg-stone-50 transition-colors group">
+<td class="px-8 py-6 text-stone-400 font-bold">03</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-stone-200 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a professional man in a beige linen shirt with soft warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVZA75rbpiPj1xr5lKvEK5BEyMVbHQZlbTc-72pT7euA306Cad5efFf2VVwjL38wVTrSrIXBSUfWw1g7QIqVo8Uuf4s2aVsrmEchhTiZsitUg046npavSUnVrK5pJiSARAjyf_tqD21_a5H6NHVFVm6TsJ3ueW-vKt19kU_A28nHQ43BL08N17MLysttxkJXwKc1DXWBx2tMzjS1NHHueqbUjmGMI5ZQgNjHqVADQVmChsKCElWwWHYKoo7xSrN9Cj9aG1_X_mn_ZU"/>
+</div>
+<div>
+<p class="text-stone-900 font-bold font-body">Julian S.</p>
+<p class="text-xs text-stone-400 font-body">Classical Master</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="inline-flex items-center gap-1.5 py-0.5 px-2.5 rounded-full text-xs font-bold bg-green-50 text-green-700 font-body">
+<span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                    Online
+                                </span>
+</td>
+<td class="px-8 py-6 text-stone-600 font-body">65.8%</td>
+<td class="px-8 py-6 text-right font-bold text-stone-800 text-xl">2768</td>
+</tr>
+</tbody>
+</table>
+<div class="bg-stone-50 p-6 text-center border-t border-stone-100">
+<button class="text-stone-500 text-sm font-bold font-label hover:text-[#4A3728] transition-colors">
+                        View Complete Leaderboard
+                    </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-[#F8F5F0] dark:bg-stone-900 py-12 border-t border-stone-200 dark:border-stone-800">
+<div class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+<div class="space-y-6">
+<span class="font-serif text-lg text-stone-800 dark:text-stone-100">Grandmaster</span>
+<p class="font-sans text-sm tracking-wide text-[#4A3728] dark:text-stone-300 max-w-xs leading-relaxed">
+                    Dedicated to the timeless beauty of the game. Our platform is built for those who seek depth over noise.
+                </p>
+<div class="flex space-x-6">
+<a class="text-stone-500 dark:text-stone-400 hover:text-[#4A3728] dark:hover:text-stone-200 transition-opacity opacity-80 hover:opacity-100" href="#">
+<span class="material-symbols-outlined">alternate_email</span>
+</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-[#4A3728] dark:hover:text-stone-200 transition-opacity opacity-80 hover:opacity-100" href="#">
+<span class="material-symbols-outlined">podcasts</span>
+</a>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-8">
+<div class="space-y-4">
+<h5 class="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400">Resources</h5>
+<ul class="space-y-3 font-sans text-sm tracking-wide">
+<li><a class="text-stone-500 dark:text-stone-400 hover:text-[#4A3728] dark:hover:text-stone-200" href="#">Puzzles</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 hover:text-[#4A3728] dark:hover:text-stone-200" href="#">Rankings</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 hover:text-[#4A3728] dark:hover:text-stone-200" href="#">Theory</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 hover:text-[#4A3728] dark:hover:text-stone-200" href="#">Etiquette</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h5 class="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400">Legal</h5>
+<ul class="space-y-3 font-sans text-sm tracking-wide">
+<li><a class="text-stone-500 dark:text-stone-400 hover:text-[#4A3728] dark:hover:text-stone-200" href="#">Privacy</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 hover:text-[#4A3728] dark:hover:text-stone-200" href="#">Fair Play</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 hover:text-[#4A3728] dark:hover:text-stone-200" href="#">Terms</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-8 mt-12 pt-8 border-t border-stone-200 dark:border-stone-800">
+<p class="font-sans text-sm tracking-wide text-stone-500 dark:text-stone-400">
+                © 2024 Grandmaster Chess. All rights reserved.
+            </p>
+</div>
+</footer>
+</body></html>
