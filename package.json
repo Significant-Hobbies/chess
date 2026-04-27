@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@playwright/test": "1.59.1",
+    "@saas-maker/tsconfig": "^1.0.0",
     "@tailwindcss/vite": "4.2.4",
     "@types/react": "19",
     "@types/react-dom": "19",
