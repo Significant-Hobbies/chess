@@ -1,0 +1,17 @@
+# Chess Coach
+
+> AI-coached chess game for practice with coaching feedback.
+
+## Product
+
+- [Home](https://chess.significanthobbies.com/): Play (SPA)
+
+## Machine surfaces
+
+- [Agent catalog](https://chess.significanthobbies.com/api/ai): JSON inventory of public surfaces
+- [Homepage markdown](https://chess.significanthobbies.com/index.md): Product brief without JS
+- [This index](https://chess.significanthobbies.com/llms.txt)
+
+## Optional
+
+- [Foundry](https://sassmaker.com): Parent fleet showcase
