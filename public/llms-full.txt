@@ -1,0 +1,36 @@
+# Chess Coach — full agent brief
+
+AI-coached chess game for practice with coaching feedback.
+
+## Index
+
+# Chess Coach
+
+AI-coached chess practice in the browser.
+
+## Note for agents
+
+The app is a client SPA with little server-rendered copy. Use this brief and `/api/ai` (when deployed with a worker) rather than HTML shell scraping.
+
+## Agent entrypoints
+
+- https://chess.significanthobbies.com/llms.txt
+- https://chess.significanthobbies.com/index.md
+
+## Product links
+
+- Home: https://chess.significanthobbies.com/ — Play (SPA)
+
+## Machine surfaces
+
+- https://chess.significanthobbies.com/llms.txt
+- https://chess.significanthobbies.com/llms-full.txt
+- https://chess.significanthobbies.com/api/ai
+- https://chess.significanthobbies.com/index.md
+- https://chess.significanthobbies.com/sitemap.xml
+- https://chess.significanthobbies.com/robots.txt
+
+## Contact / fleet
+
+- Fleet: https://sassmaker.com
+- Agent email for directory verification: sarthakagrawal@agentmail.to

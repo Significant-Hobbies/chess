@@ -3,8 +3,9 @@
   "version": "1",
   "url": "https://chess.significanthobbies.com",
   "llms": "https://chess.significanthobbies.com/llms.txt",
-  "llmsFull": null,
+  "llmsFull": "https://chess.significanthobbies.com/llms-full.txt",
   "sitemap": "https://chess.significanthobbies.com/sitemap.xml",
+  "robots": "https://chess.significanthobbies.com/robots.txt",
   "markdown": {
     "suffix": ".md",
     "negotiation": true
