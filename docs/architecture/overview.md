@@ -16,7 +16,7 @@ src/
   main.tsx                      # React entry
   index.css                     # Tailwind import + global dark theme (#1a1a2e)
   components/
-    ChessGame.tsx               # Game logic — board, clocks, controls, state persistence (643 lines, the core)
+    ChessGame.tsx               # Game logic — board, clocks, controls, state persistence (the core)
     CoachPanel.tsx              # Coaching explanation display + Analyze button
     EvalBar.tsx                 # Stockfish eval bar (vertical desktop, horizontal mobile)
     MoveList.tsx                # Move history with quality badges
