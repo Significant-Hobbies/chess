@@ -17,3 +17,13 @@ dist-ssr
 # fallow cache
 .fallow/
 cache.bin
+
+# Blume (docs presentation layer) — generated runtime + build output.
+# Markdown in docs/ is the source of truth; these are derived.
+.blume/
+.blume-verify/
+
+# Local agent logs / scratch (not agent config/skills dirs — those may be committed)
+agent.log
+*.agent.log
+agents.log

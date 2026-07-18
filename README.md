@@ -34,7 +34,13 @@ pnpm preview
 
 - React 19 + TypeScript + Vite 8 frontend.
 - Stockfish 18 WASM in a Web Worker; `chess.js` handles legal moves and game state.
-- `api/coach.ts` provides the hosted streaming AI proxy; `server/index.mjs` bridges local AI CLIs during development.
+- `api/coach.ts` provides the hosted streaming AI proxy; `server/` (a git submodule, cli-bridge) bridges local AI CLIs during development.
 - Current game and AI configuration are stored in browser `localStorage`.
 
-See [agents.md](agents.md) for the repository map and implementation conventions.
+## Documentation
+
+- [AGENTS.md](AGENTS.md) — concise agent bootloader (purpose, commands, critical constraints, docs navigation).
+- [STATUS.md](STATUS.md) — current objective, active work, blockers, next steps.
+- [docs/](docs/index.md) — canonical knowledge system: product, architecture, decisions, development, operations, learnings. Rendered for the web by Blume (`blume.config.ts`); the Markdown is the source of truth.
+
+See [AGENTS.md](AGENTS.md) for the repository map and implementation conventions.

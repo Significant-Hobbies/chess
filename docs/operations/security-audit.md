@@ -1,4 +1,13 @@
+---
+title: Security Audit
+description: Security audit of the chess repo — open LLM proxy, CORS, key handling. Canonical security record.
+---
+
 # Security Audit — chess
+
+> This is the canonical security record for the repo (moved from `AUDIT.md`).
+> Action items are tracked here and in [`STATUS.md`](../../STATUS.md).
+
 **Date**: 2026-03-28 | **Status**: Paused
 
 ## Secrets in Git History
@@ -13,7 +22,7 @@ None found. No `.env`, `.pem`, `.key`, or service-account files in any commit.
 `api/coach.ts` is a Vercel serverless function acting as an **open LLM proxy** -- accepts arbitrary user-supplied API keys and forwards them to OpenAI/Anthropic/Google/DeepSeek with zero authentication or rate limiting.
 
 ## Code Security
-- **Wide-open CORS**: `server/index.mjs` line 205 uses `app.use(cors())` with no origin restriction.
+- **Wide-open CORS**: `server/index.mjs` (the `cli-bridge` submodule) line 205 uses `app.use(cors())` with no origin restriction. Dev-only, but still worth restricting.
 - **Open LLM proxy** (`api/coach.ts`): No auth, no rate limiting. Could be abused for token laundering or billing attacks if the Vercel deployment is live.
 - **Google API key in URL**: `api/coach.ts` line 135 passes the API key as a query parameter, which may appear in server logs and CDN caches.
 - **CLI spawn** (`server/index.mjs`): Provider is validated against a fixed allowlist -- no command injection risk.
