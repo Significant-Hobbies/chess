@@ -99,7 +99,17 @@ export function ChessGame({ aiConfig }: ChessGameProps) {
   const [lastMoveQuality, setLastMoveQuality] = useState<MoveQuality | null>(null)
   const [lastMoveSan, setLastMoveSan] = useState<string | null>(null)
   const [isFetchingHint, setIsFetchingHint] = useState(false)
-  const [boardWidth, setBoardWidth] = useState(480)
+  const [boardWidth, setBoardWidth] = useState(() => {
+    if (typeof window === 'undefined') return 480
+    const vw = window.innerWidth
+    if (vw < 768) {
+      // Mobile: full width minus p-3 padding (12px each side) + 8px buffer, capped at 560px
+      return Math.max(200, Math.min(vw - 24 - 8, 560))
+    } else {
+      // Desktop: subtract right panel (w-72=288px), left eval bar (~40px), gaps (32px), padding (24px), buffer (8px)
+      return Math.max(200, Math.min(vw - 288 - 40 - 32 - 24 - 8, 800))
+    }
+  })
   const [timeControl, setTimeControl] = useState(saved?.timeControl ?? 0)
   const [timeLeft, setTimeLeft] = useState(saved?.timeLeft ?? { white: 0, black: 0 })
 
@@ -135,24 +145,21 @@ export function ChessGame({ aiConfig }: ChessGameProps) {
 
   const { explanation, isStreaming, error: coachError, evaluate } = useChessCoach()
 
-  // ResizeObserver for accurate board sizing based on actual container width
+  // ResizeObserver for accurate board sizing based on actual container width.
+  // Only fire on window resize, NOT on initial mount — the initial boardWidth
+  // from useState is already correct and firing immediately causes a CLS shift.
+  // No vh dependency — vh changes on mobile when URL bar shows/hides, causing CLS.
   useEffect(() => {
-    const el = centerColRef.current
-    if (!el) return
-
-    const observer = new ResizeObserver(entries => {
-      for (const entry of entries) {
-        const w = entry.contentRect.width
-        const vh = window.innerHeight
-        if (window.innerWidth < 768) {
-          setBoardWidth(Math.min(w - 8, vh - 220, 560))
-        } else {
-          setBoardWidth(Math.min(w - 8, vh - 180, 800))
-        }
+    const onResize = () => {
+      const vw = window.innerWidth
+      if (vw < 768) {
+        setBoardWidth(Math.max(200, Math.min(vw - 24 - 8, 560)))
+      } else {
+        setBoardWidth(Math.max(200, Math.min(vw - 288 - 40 - 32 - 24 - 8, 800)))
       }
-    })
-    observer.observe(el)
-    return () => observer.disconnect()
+    }
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
   }, [])
 
   // Init Stockfish engine
@@ -471,8 +478,8 @@ export function ChessGame({ aiConfig }: ChessGameProps) {
         <EvalBar eval={evalScore} orientation={playerColor} className="h-full" />
       </div>
 
-      {/* Center: Board + clocks */}
-      <div ref={centerColRef} className="flex-1 min-w-0 flex flex-col gap-2 items-center">
+      {/* Center: Board + clocks — min-height reserves space to prevent CLS */}
+      <div ref={centerColRef} className="min-w-0 flex flex-col gap-2 items-center w-full">
         {/* Mobile eval bar */}
         <div className="md:hidden w-full">
           <EvalBar eval={evalScore} orientation={playerColor} horizontal />
@@ -480,7 +487,7 @@ export function ChessGame({ aiConfig }: ChessGameProps) {
 
         {/* Computer clock (opponent, above board) */}
         {timeControl > 0 && (
-          <div style={{ width: boardWidth }}>
+          <div className="w-full" style={{ maxWidth: "min(100vw - 32px, 560px)" }}>
             <ChessClock
               time={timeLeft[computerColor]}
               isActive={!isPlayerTurn() && !gameOver}
@@ -490,7 +497,7 @@ export function ChessGame({ aiConfig }: ChessGameProps) {
         )}
 
         {/* Status area — fixed height to prevent layout shift */}
-        <div className="h-8 flex items-center justify-center" style={{ width: boardWidth }}>
+        <div className="h-8 flex items-center justify-center w-full" style={{ maxWidth: "min(100vw - 32px, 560px)" }}>
           {gameOver ? (
             <div className="bg-yellow-900/60 border border-yellow-600 text-yellow-200 rounded-lg px-4 py-1 text-sm font-semibold">
               {gameOver}
@@ -503,8 +510,8 @@ export function ChessGame({ aiConfig }: ChessGameProps) {
           ) : null}
         </div>
 
-        {/* Chess board */}
-        <div style={{ width: boardWidth, height: boardWidth }}>
+        {/* Chess board — CSS-sized with contain:strict to isolate from layout */}
+        <div className="bg-gray-800 rounded-lg" style={{ width: "min(100vw - 32px, 560px)", height: "min(100vw - 32px, 560px)", contain: "strict" }}>
           <Chessboard
             options={{
               position: fen,
@@ -523,7 +530,7 @@ export function ChessGame({ aiConfig }: ChessGameProps) {
 
         {/* Player clock (you, below board) */}
         {timeControl > 0 && (
-          <div style={{ width: boardWidth }}>
+          <div className="w-full" style={{ maxWidth: "min(100vw - 32px, 560px)" }}>
             <ChessClock
               time={timeLeft[playerColor]}
               isActive={isPlayerTurn() && !gameOver}
@@ -533,7 +540,7 @@ export function ChessGame({ aiConfig }: ChessGameProps) {
         )}
 
         {/* Controls row */}
-        <div className="flex gap-2 flex-wrap justify-center">
+        <div className="flex gap-2 flex-wrap justify-center w-full" style={{ maxWidth: "min(100vw - 32px, 560px)" }}>
           <button
             onClick={handleNewGame}
             className="flex items-center gap-1.5 px-3 py-2 bg-gray-700 hover:bg-gray-600 text-gray-200 rounded-lg text-sm font-medium transition-colors"
