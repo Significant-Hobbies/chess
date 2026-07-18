@@ -8,11 +8,11 @@ description: Knowledge system for the Chess Coach repository — product, archit
 Chess Coach is a browser chess app: play Stockfish (WASM) in the browser and get
 optional, plain-language AI coaching for any position. This `docs/` tree is the
 canonical, source-of-truth documentation for the repository. It is written for
-both humans and agents, and is rendered for the web by [Blume](../blume.config.ts)
+both humans and agents, and is rendered for the web by [Blume](https://github.com/Significant-Hobbies/chess/blob/main/blume.config.ts)
 (Blume is only the presentation layer — this Markdown is the source of truth).
 
-> Repository bootloader: [`AGENTS.md`](../AGENTS.md). Current snapshot:
-> [`STATUS.md`](../STATUS.md). Human entry point: [`README.md`](../README.md).
+> Repository bootloader: [`AGENTS.md`](https://github.com/Significant-Hobbies/chess/blob/main/AGENTS.md). Current snapshot:
+> [`STATUS.md`](https://github.com/Significant-Hobbies/chess/blob/main/STATUS.md). Human entry point: [`README.md`](https://github.com/Significant-Hobbies/chess/blob/main/README.md).
 
 ## How this knowledge system is organized
 

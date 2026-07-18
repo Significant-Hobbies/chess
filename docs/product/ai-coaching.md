@@ -12,7 +12,7 @@ Coach panel. Coaching is never auto-triggered on every move (cost + latency).
 ## Provider model
 
 There are two transport paths, decided by whether the selected provider is a
-"local" CLI or a cloud API. The split lives in [`src/hooks/useAI.ts`](../../src/hooks/useAI.ts).
+"local" CLI or a cloud API. The split lives in [`src/hooks/useAI.ts`](https://github.com/Significant-Hobbies/chess/blob/main/src/hooks/useAI.ts).
 
 | Path | Provider set | Transport | Where it runs |
 | --- | --- | --- | --- |
@@ -43,7 +43,7 @@ the error.
 
 ## Prompt design
 
-The system prompt and per-move prompt are in [`src/lib/ai-prompts.ts`](../../src/lib/ai-prompts.ts).
+The system prompt and per-move prompt are in [`src/lib/ai-prompts.ts`](https://github.com/Significant-Hobbies/chess/blob/main/src/lib/ai-prompts.ts).
 
 - **System prompt** fixes the persona: a concise chess coach that uses concrete
   positional/tactical concepts, stays under 3 sentences, is encouraging but

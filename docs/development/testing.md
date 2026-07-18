@@ -8,7 +8,7 @@ description: Current test state — a single Playwright smoke test — and how t
 ## Current state
 
 There is **no real test suite**. The only test file is
-[`tests/example.spec.ts`](../../tests/example.spec.ts) — a one-line Playwright
+[`tests/example.spec.ts`](https://github.com/Significant-Hobbies/chess/blob/main/tests/example.spec.ts) — a one-line Playwright
 smoke test that loads `http://localhost:3000` and asserts the title matches
 `/Chess/i`.
 

@@ -63,9 +63,6 @@ export default defineConfig({
 
   ai: {
     llmsTxt: true,
-    mcp: {
-      enabled: false,
-    },
   },
 
   seo: {

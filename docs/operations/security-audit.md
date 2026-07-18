@@ -6,7 +6,7 @@ description: Security audit of the chess repo — open LLM proxy, CORS, key hand
 # Security Audit — chess
 
 > This is the canonical security record for the repo (moved from `AUDIT.md`).
-> Action items are tracked here and in [`STATUS.md`](../../STATUS.md).
+> Action items are tracked here and in [`STATUS.md`](https://github.com/Significant-Hobbies/chess/blob/main/STATUS.md).
 
 **Date**: 2026-03-28 | **Status**: Paused
 

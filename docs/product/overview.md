@@ -46,7 +46,7 @@ human-readable move explanations — closer to a coach than a raw eval bar.
 - No multiplayer, no sound effects.
 - Promotion always auto-queens (no piece-selection UI).
 
-See [`STATUS.md`](../../STATUS.md) for the current objective and blockers.
+See [`STATUS.md`](https://github.com/Significant-Hobbies/chess/blob/main/STATUS.md) for the current objective and blockers.
 
 ## Audience
 

@@ -67,7 +67,7 @@ public/
 
 ## Stockfish engine wrapper
 
-`StockfishEngine` ([`src/lib/stockfish.ts`](../../src/lib/stockfish.ts)) wraps the
+`StockfishEngine` ([`src/lib/stockfish.ts`](https://github.com/Significant-Hobbies/chess/blob/main/src/lib/stockfish.ts)) wraps the
 WASM worker:
 
 - Single-worker, **serialized** via an `isTurn` flag + `queue`. Concurrent
@@ -103,4 +103,4 @@ target must serve the same headers — see
 
 ## Decisions
 
-Non-obvious *why* choices are recorded as ADRs in [decisions/](decisions/).
+Non-obvious *why* choices are recorded as ADRs in the [decisions directory](https://github.com/Significant-Hobbies/chess/tree/main/docs/architecture/decisions).
