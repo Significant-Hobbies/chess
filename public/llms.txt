@@ -5,6 +5,7 @@
 ## Product
 
 - [Home](https://chess.significanthobbies.com/): Play (SPA)
+- [FAQ](https://chess.significanthobbies.com/faq): Frequently asked questions about Chess Coach
 
 ## Machine surfaces
 
