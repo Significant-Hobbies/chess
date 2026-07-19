@@ -1,9 +1,5 @@
 import { FeedbackWidget } from "@saas-maker/feedback";
 import "@saas-maker/feedback/dist/index.css";
-import { TestimonialWall } from "@saas-maker/testimonials";
-import "@saas-maker/testimonials/dist/index.css";
-import { ChangelogTimeline } from "@saas-maker/changelog-widget";
-import "@saas-maker/changelog-widget/dist/index.css";
 
 const API_KEY = import.meta.env.VITE_SAASMAKER_API_KEY ?? "";
 const API_BASE = "https://api.sassmaker.com";
@@ -18,14 +14,4 @@ export function SaaSMakerFeedback() {
       theme="dark"
     />
   );
-}
-
-export function SaaSMakerTestimonials() {
-  if (!API_KEY) return null;
-  return <TestimonialWall projectId={API_KEY} apiBaseUrl={API_BASE} theme="dark" layout="grid" />;
-}
-
-export function SaaSMakerChangelog() {
-  if (!API_KEY) return null;
-  return <ChangelogTimeline projectId={API_KEY} apiBaseUrl={API_BASE} theme="dark" />;
 }

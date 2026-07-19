@@ -1,0 +1,12 @@
+{
+  "$schema": "https://unpkg.com/knip@latest/schema.json",
+  "entry": ["api/**/*.ts"],
+  "project": ["**/*.{ts,tsx,js,jsx,mjs,cjs,mts}"],
+  "ignore": [
+    "**/public/**",
+    "**/*.config.{js,ts,mjs,cjs}",
+    "**/blume.config.*",
+    "**/eslint.config.*"
+  ],
+  "ignoreDependencies": ["blume", "stockfish", "tailwindcss"]
+}
