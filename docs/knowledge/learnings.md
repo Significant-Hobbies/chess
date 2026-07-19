@@ -38,8 +38,7 @@ Chess(fen)` clone will silently drop history and break undo / move list.
 `ChessGame` deliberately does **not** fire `ResizeObserver` on initial mount (the
 `useState` initial is already correct) and avoids `vh` units, because mobile URL
 bar show/hide changes `vh` and causes CLS. The board container uses
-`contain: strict` to isolate layout. A `#lcp-shell` div in `index.html` renders
-the LCP text immediately to avoid a blank dark frame.
+`contain: strict` to isolate layout.
 
 ## Vite multi-page builds silently drop unlisted entries
 

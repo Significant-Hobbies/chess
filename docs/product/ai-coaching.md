@@ -63,9 +63,11 @@ low and answers specific.
 
 ## Models offered
 
-The model list per provider is hardcoded in `MODELS` in `useAI.ts`. Defaults:
-local dev → `claude-code`; prod → `claude-sonnet-4-5-20250929`. Update the list
-there when adding or retiring models — it is not config-driven.
+The model list per provider is hardcoded in `MODELS` in `useAI.ts`. The default
+config (`loadAIConfig`) depends on `import.meta.env.DEV`: local dev → provider
+`claude-code`, model `claude-code-local`; prod → provider `anthropic`, model
+`claude-sonnet-4-5-20250929`. Update the list there when adding or retiring
+models — it is not config-driven.
 
 ## Configuration persistence
 

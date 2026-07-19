@@ -16,9 +16,7 @@ description: Component, hook, and naming conventions plus the move-quality and e
 
 - Tailwind CSS v4 via `@tailwindcss/vite` (no `tailwind.config.js` — v4 is
   CSS-first). Global styles + dark theme base (`#1a1a2e`) in `src/index.css`.
-- Inline `style={{}}` is used where a value is dynamic (board sizing, eval bar)
-  or must avoid Tailwind purge (critical inline styles in `index.html` to prevent
-  FOUC/CLS).
+- Inline `style={{}}` is used where a value is dynamic (board sizing, eval bar).
 
 ## Move quality classification
 
