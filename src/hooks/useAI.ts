@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef } from 'react'
 import { buildChessCoachPrompt, SYSTEM_PROMPT } from '../lib/ai-prompts'
 
-export type AIProvider = 'claude-code' | 'codex' | 'gemini-cli' | 'openai' | 'anthropic' | 'google' | 'deepseek'
+export type AIProvider = 'claude-code' | 'codex' | 'gemini-cli' | 'free-ai' | 'openai' | 'anthropic' | 'google' | 'deepseek'
 
 export const LOCAL_PROVIDERS = new Set<AIProvider>(['claude-code', 'codex', 'gemini-cli'])
 export const IS_LOCAL = import.meta.env.DEV
@@ -18,6 +18,7 @@ const MODELS: Record<AIProvider, string[]> = {
   'claude-code': ['claude-code-local'],
   'codex': ['codex-local'],
   'gemini-cli': ['gemini-cli-local'],
+  'free-ai': ['auto', 'gemini-2.5-flash', 'groq-llama-70b', 'groq-qwen3-32b'],
   openai: ['gpt-4.1-nano', 'gpt-4.1-mini', 'gpt-4.1', 'gpt-4o-mini', 'gpt-4o', 'o4-mini'],
   anthropic: ['claude-haiku-4-5-20251001', 'claude-sonnet-4-5-20250929', 'claude-opus-4-6'],
   google: ['gemini-2.5-flash', 'gemini-2.5-flash-lite', 'gemini-2.5-pro'],
@@ -35,7 +36,7 @@ export function loadAIConfig(): AIConfig {
   } catch { }
   return IS_LOCAL
     ? { provider: 'claude-code' as AIProvider, apiKey: '', model: 'claude-code-local' }
-    : { provider: 'anthropic' as AIProvider, apiKey: '', model: 'claude-sonnet-4-5-20250929' }
+    : { provider: 'free-ai' as AIProvider, apiKey: '', model: 'auto' }
 }
 
 export function saveAIConfig(config: AIConfig) {
@@ -116,7 +117,7 @@ const LOCAL_TOOL_MAP: Partial<Record<AIProvider, string>> = {
   'gemini-cli': 'gemini',
 }
 
-async function streamLocalCLI(
+async function streamLocalAI(
   config: AIConfig,
   messages: AIMessage[],
   systemContext: string,
@@ -137,7 +138,7 @@ async function streamLocalCLI(
 
   if (!res.ok) {
     const err = await res.text()
-    throw new Error(`Local CLI server error: ${res.status} - ${err}`)
+    throw new Error(`Local AI server error: ${res.status} - ${err}`)
   }
 
   const reader = res.body!.getReader()
@@ -189,7 +190,7 @@ export function useChessCoach() {
     setIsStreaming(true)
     setError(null)
 
-    if (!LOCAL_PROVIDERS.has(config.provider) && !config.apiKey) {
+    if (!LOCAL_PROVIDERS.has(config.provider) && config.provider !== 'free-ai' && !config.apiKey) {
       setError('No API key configured. Open AI Config (gear icon) to add your key.')
       setIsStreaming(false)
       return
@@ -205,7 +206,7 @@ export function useChessCoach() {
 
     try {
       const streamFn = LOCAL_PROVIDERS.has(config.provider)
-        ? streamLocalCLI
+        ? streamLocalAI
         : streamCloudProxy
 
       await streamFn(config, messages, systemContext, onChunk, abortRef.current.signal)

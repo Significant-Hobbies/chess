@@ -10,9 +10,10 @@ import {
 } from '../hooks/useAI'
 
 const PROVIDERS: { value: AIProvider; label: string }[] = [
-  { value: 'claude-code', label: 'Claude Code (local CLI)' },
-  { value: 'gemini-cli', label: 'Gemini CLI (local)' },
-  { value: 'codex', label: 'Codex CLI (local)' },
+  { value: 'free-ai', label: 'Free AI Gateway' },
+  { value: 'claude-code', label: 'Claude Code (local AI)' },
+  { value: 'gemini-cli', label: 'Gemini CLI (local AI)' },
+  { value: 'codex', label: 'Codex CLI (local AI)' },
   { value: 'anthropic', label: 'Anthropic API' },
   { value: 'openai', label: 'OpenAI API' },
   { value: 'google', label: 'Google AI API' },
@@ -87,7 +88,7 @@ export function AIConfigModal({ onClose, onSave }: AIConfigModalProps) {
 
           {isLocal ? (
             <div className="bg-blue-900/30 border border-blue-700 rounded-lg p-3 text-sm text-blue-300">
-              Local CLI providers don't need an API key. Make sure the CLI tool is installed and authenticated.
+              Local AI providers don't need an API key. Make sure the CLI tool is installed and authenticated.
             </div>
           ) : (
             <div className="flex flex-col gap-1.5">

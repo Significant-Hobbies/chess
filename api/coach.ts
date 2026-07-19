@@ -1,12 +1,15 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 
-type Provider = 'openai' | 'anthropic' | 'google' | 'deepseek'
+type Provider = 'openai' | 'anthropic' | 'google' | 'deepseek' | 'free-ai'
 
-const VALID_PROVIDERS = new Set<string>(['openai', 'anthropic', 'google', 'deepseek'])
+const VALID_PROVIDERS = new Set<string>(['openai', 'anthropic', 'google', 'deepseek', 'free-ai'])
+
+const FREE_AI_GATEWAY_URL = process.env.FREE_AI_GATEWAY_URL || 'https://free-ai-gateway.sarthakagrawal927.workers.dev/v1/chat/completions'
 
 const OPENAI_COMPAT_URLS: Partial<Record<Provider, string>> = {
   openai: 'https://api.openai.com/v1/chat/completions',
   deepseek: 'https://api.deepseek.com/chat/completions',
+  'free-ai': FREE_AI_GATEWAY_URL,
 }
 
 interface Message {
@@ -78,13 +81,21 @@ async function proxyOpenAICompat(
   res: VercelResponse
 ) {
   const url = OPENAI_COMPAT_URLS[provider] || OPENAI_COMPAT_URLS.openai!
+  const resolvedKey = provider === 'free-ai'
+    ? (apiKey || process.env.FREE_AI_API_KEY || 'x')
+    : apiKey
+
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${resolvedKey}`,
+  }
+  if (provider === 'free-ai') {
+    headers['x-gateway-project-id'] = 'chess'
+  }
 
   const upstream = await fetch(url, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
-    },
+    headers,
     body: JSON.stringify({
       model,
       stream: true,
@@ -175,8 +186,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const { provider, model, apiKey, messages, systemPrompt } = req.body as RequestBody
 
-  if (!provider || !model || !apiKey || !messages || !systemPrompt) {
-    res.status(400).json({ error: 'Missing required fields: provider, model, apiKey, messages, systemPrompt' })
+  if (!provider || !model || !messages || !systemPrompt) {
+    res.status(400).json({ error: 'Missing required fields: provider, model, messages, systemPrompt' })
+    return
+  }
+
+  if (provider !== 'free-ai' && !apiKey) {
+    res.status(400).json({ error: 'Missing required field: apiKey' })
     return
   }
 
