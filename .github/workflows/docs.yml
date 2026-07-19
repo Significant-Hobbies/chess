@@ -1,0 +1,56 @@
+name: Docs
+
+# Validates the docs/ knowledge system: broken-link check + Blume render check.
+# Blume is fetched on demand (pinned, not a dependency) so this workflow does
+# not touch the pnpm lockfile. The pin is held in sync with scripts/docs-*.sh.
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'docs/**'
+      - 'AGENTS.md'
+      - 'STATUS.md'
+      - 'README.md'
+      - 'blume.config.ts'
+      - 'scripts/docs-*.sh'
+      - 'scripts/check-docs-links.sh'
+      - '.github/workflows/docs.yml'
+  pull_request:
+    branches: [main, master]
+    paths:
+      - 'docs/**'
+      - 'AGENTS.md'
+      - 'STATUS.md'
+      - 'README.md'
+      - 'blume.config.ts'
+      - 'scripts/docs-*.sh'
+      - 'scripts/check-docs-links.sh'
+      - '.github/workflows/docs.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Blume's lastModified: true reads git dates — avoid shallow checkout.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22.12'
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.2
+
+      - name: Install docs tooling
+        run: pnpm install --frozen-lockfile
+
+      - name: Fast local link check (no network)
+        run: ./scripts/check-docs-links.sh
+
+      - name: Blume validate + render check
+        # Pinned to 0.8.0 (>=7 days old at pin time). Bump in lockstep with
+        # scripts/docs-*.sh once a newer version is vetted.
+        run: ./scripts/docs-validate.sh
