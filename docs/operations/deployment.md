@@ -78,5 +78,5 @@ source of truth). There is **no automated docs deploy** yet.
 ## Dependency updates
 
 - `renovate.json` extends `github>sarthakagrawal927/foundry-renovate-config`.
-- `.github/dependabot.yml` — weekly npm updates, **only** for `@saas-maker/sdk`,
+- `.github/dependabot.yml` — weekly npm updates, **only** for `@saas-maker/feedback`,
   one open PR at a time, `deps:` commit prefix.

@@ -50,14 +50,13 @@ which perspective they want and convert explicitly.
 ## Config / secrets
 
 - No secrets in code or env-committed files. `.env*` and `*.local` are gitignored.
-- `foundry.json` contains a SaaSMaker **project key** (public-prefix, low risk)
-  and is committed intentionally.
+- `foundry.json` contains the SaaS Maker feedback **project key** (public-prefix,
+  low risk) and is committed intentionally.
 - The husky pre-push hook scans for common secret patterns; respect its excludes
   (tests, fixtures, `.example`).
 
 ## Linting / formatting
 
-- ESLint config extends `@saas-maker/eslint-config/vite` (`eslint.config.js`).
-- Prettier config is `@saas-maker/prettier-config` (declared in `package.json`).
+- TypeScript configuration is local to this repository.
 - There is **no `lint` or `format` script** in `package.json` today, so the husky
   pre-push lint step is a no-op. Adding one is a listed TODO.

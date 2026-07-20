@@ -1,17 +1,13 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import { Settings } from 'lucide-react'
 import { ChessGame } from './components/ChessGame'
 import { AIConfigModal } from './components/AIConfig'
 import { loadAIConfig, type AIConfig } from './hooks/useAI'
-import { saasmaker } from './lib/saasmaker'
 import { SaaSMakerFeedback } from './components/saasmaker-feedback'
 
 export default function App() {
   const [showAIConfig, setShowAIConfig] = useState(false)
 
-  useEffect(() => {
-    saasmaker.analytics.track({ name: 'page_view', url: window.location.pathname }).catch(() => {});
-  }, []);
   const [aiConfig, setAIConfig] = useState<AIConfig>(() => loadAIConfig())
 
   const handleConfigSave = useCallback((config: AIConfig) => {

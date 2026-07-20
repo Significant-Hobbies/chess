@@ -29,8 +29,8 @@ human-readable move explanations — closer to a coach than a raw eval bar.
 - On-demand streaming AI coaching through Anthropic, OpenAI, Google, DeepSeek,
   or supported local CLI tools (Claude Code, Codex, Gemini CLI).
 - Automatic local game-state persistence across reloads (`localStorage`).
-- Responsive desktop + mobile layout, SaaS Maker feedback / analytics /
-  testimonials / changelog widgets.
+- Responsive desktop + mobile layout, direct PostHog analytics, and the SaaS
+  Maker feedback widget.
 - Agent- and crawler-facing surfaces: `llms.txt`, `llms-full.txt`, `/api/ai`,
   `index.md`, `sitemap.xml`, `robots.txt`, IndexNow key, FAQ page with
   `FAQPage` JSON-LD. See [operations/agent-indexing](../operations/agent-indexing.md).

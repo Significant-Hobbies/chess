@@ -9,7 +9,7 @@ Play chess against Stockfish in the browser and request plain-language coaching 
 - Six Stockfish difficulty levels, evaluation bar, move quality labels, hints, undo, and board flip.
 - Configurable chess clocks and automatic local game-state persistence.
 - Streaming coaching through Anthropic, OpenAI, Google, DeepSeek, or supported local CLI tools.
-- Responsive React interface with SaaS Maker feedback, analytics, testimonials, and changelog widgets.
+- Responsive React interface with direct PostHog analytics and the SaaS Maker feedback widget.
 
 ## Local development
 
