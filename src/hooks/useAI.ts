@@ -4,7 +4,7 @@ import { buildChessCoachPrompt, SYSTEM_PROMPT } from '../lib/ai-prompts'
 export type AIProvider = 'claude-code' | 'codex' | 'gemini-cli' | 'free-ai' | 'openai' | 'anthropic' | 'google' | 'deepseek'
 
 export const LOCAL_PROVIDERS = new Set<AIProvider>(['claude-code', 'codex', 'gemini-cli'])
-export const IS_LOCAL = import.meta.env.DEV
+const IS_LOCAL = import.meta.env.DEV
 
 export interface AIConfig {
   provider: AIProvider
