@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 # Validate the docs/ tree with Blume: link check (strict) + render check.
 #
-# Blume is fetched on demand (not a dependency) so this doesn't touch the
-# lockfile. Pin is held in sync across scripts/docs-*.sh and
-# .github/workflows/docs.yml — bump together once a version is vetted (>=7 days).
+# Blume and its isolated Astro renderer are pinned in devDependencies. Keep the
+# command pin in sync with package.json and .github/workflows/docs.yml.
 #
 # Usage:
 #   ./scripts/docs-validate.sh          # internal links, strict

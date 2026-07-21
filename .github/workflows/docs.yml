@@ -1,8 +1,8 @@
 name: Docs
 
 # Validates the docs/ knowledge system: broken-link check + Blume render check.
-# Blume is fetched on demand (pinned, not a dependency) so this workflow does
-# not touch the pnpm lockfile. The pin is held in sync with scripts/docs-*.sh.
+# Blume and its isolated Astro renderer are pinned in devDependencies. The
+# command pin is held in sync with package.json and scripts/docs-*.sh.
 on:
   push:
     branches: [main, master]
