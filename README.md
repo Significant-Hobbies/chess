@@ -8,7 +8,9 @@ Play chess against Stockfish in the browser and request plain-language coaching 
 
 - Six Stockfish difficulty levels, evaluation bar, move quality labels, hints, undo, and board flip.
 - Configurable chess clocks and automatic local game-state persistence.
-- Streaming coaching through Anthropic, OpenAI, Google, DeepSeek, or supported local CLI tools.
+- Streaming coaching code for Anthropic, OpenAI, Google, DeepSeek, Free AI, and
+  supported local CLI tools. The live static Pages target does not currently
+  serve the Vercel-only cloud proxy.
 - Responsive React interface with direct PostHog analytics and the SaaS Maker feedback widget.
 
 ## Local development
@@ -34,7 +36,9 @@ pnpm preview
 
 - React 19 + TypeScript + Vite 8 frontend.
 - Stockfish 18 WASM in a Web Worker; `chess.js` handles legal moves and game state.
-- `api/coach.ts` provides the hosted streaming AI proxy; `server/` (a git submodule, cli-bridge) bridges local AI CLIs during development.
+- `api/coach.ts` provides a Vercel-only streaming AI proxy and is not included
+  in the active Cloudflare Pages build; `server/` (a git submodule, cli-bridge)
+  bridges local AI CLIs during development.
 - Current game and AI configuration are stored in browser `localStorage`.
 
 ## Documentation

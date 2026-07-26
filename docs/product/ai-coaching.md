@@ -17,11 +17,12 @@ There are two transport paths, decided by whether the selected provider is a
 | Path | Provider set | Transport | Where it runs |
 | --- | --- | --- | --- |
 | **Local CLI** | `claude-code`, `codex`, `gemini-cli` | POST `/api/chat` → Express bridge spawns the CLI and streams SSE back | Dev only (`server/` submodule) |
-| **Cloud proxy** | `openai`, `anthropic`, `google`, `deepseek` | POST `/api/coach` → Vercel serverless fn forwards to the upstream API | Prod |
+| **Cloud proxy** | `free-ai`, `openai`, `anthropic`, `google`, `deepseek` | POST `/api/coach` → Vercel serverless fn forwards to the upstream API | Vercel path only; not served by active Pages deploy |
 
 - `LOCAL_PROVIDERS` and `IS_LOCAL` (derived from `import.meta.env.DEV`) decide the
   path. In production the local CLI path is unreachable (no Express bridge).
-- The cloud proxy is `api/coach.ts` — see
+- The active production deployment is static Cloudflare Pages, so `/api/coach`
+  is unavailable there. The separate cloud proxy is `api/coach.ts` — see
   [operations/security-audit](../operations/security-audit.md): it currently
   forwards user-supplied keys with **no auth and no rate limiting**.
 - The Express bridge is a git submodule (`server/` →
@@ -65,9 +66,10 @@ low and answers specific.
 
 The model list per provider is hardcoded in `MODELS` in `useAI.ts`. The default
 config (`loadAIConfig`) depends on `import.meta.env.DEV`: local dev → provider
-`claude-code`, model `claude-code-local`; prod → provider `anthropic`, model
-`claude-sonnet-4-5-20250929`. Update the list there when adding or retiring
-models — it is not config-driven.
+`claude-code`, model `claude-code-local`; production builds → provider
+`free-ai`, model `auto`. The active Pages deployment does not currently serve
+the Vercel proxy needed by that production default. Update the list there when
+adding or retiring models — it is not config-driven.
 
 ## Configuration persistence
 

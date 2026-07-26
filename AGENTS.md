@@ -39,8 +39,9 @@ Docs (Blume is fetched on demand, not a dependency):
 - **Clone games via PGN, not `new Chess(fen)`** — FEN drops move history.
 - **New static `.html` pages must be added to `vite.config.ts` `rollupOptions.input`**
   or they silently drop from the build (happened to `faq.html`, fixed in d056c08).
-- **`api/coach.ts` is an open LLM proxy** (no auth, no rate limit) — the primary
-  security blocker. Don't redeploy without addressing it. See
+- **`api/coach.ts` is an open, Vercel-only LLM proxy** (no auth, no rate
+  limit). It is not included in the active static Cloudflare Pages deploy. Do
+  not enable or redeploy the Vercel path without addressing it. See
   [docs/operations/security-audit](docs/operations/security-audit.md).
 - **The `index.html` JSON-LD block is generated** (`fleet-jsonld:start/end`) —
   edit the fleet registry, not the block.

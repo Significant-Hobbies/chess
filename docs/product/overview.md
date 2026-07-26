@@ -26,8 +26,9 @@ human-readable move explanations — closer to a coach than a raw eval bar.
   undo, and board flip.
 - Configurable chess clocks (untimed, 1 / 3 / 5 / 10 / 15 min) with per-player
   countdown and win-on-time.
-- On-demand streaming AI coaching through Anthropic, OpenAI, Google, DeepSeek,
-  or supported local CLI tools (Claude Code, Codex, Gemini CLI).
+- On-demand streaming AI coaching code for Anthropic, OpenAI, Google, DeepSeek,
+  Free AI, and supported local CLI tools (Claude Code, Codex, Gemini CLI). The
+  active static Pages deployment does not serve the Vercel-only cloud proxy.
 - Automatic local game-state persistence across reloads (`localStorage`).
 - Responsive desktop + mobile layout, direct PostHog analytics, and the SaaS
   Maker feedback widget.
@@ -59,6 +60,7 @@ was good or bad, without installing anything or creating an account.
   <https://sassmaker.com>.
 - Deployed via Cloudflare Pages (manual `workflow_dispatch`) — see
   [operations/deployment](../operations/deployment.md).
-- The hosted AI proxy (`api/coach.ts`) is an **open LLM proxy** and is the main
-  security blocker before any broader promotion — see
+- The dormant Vercel AI proxy (`api/coach.ts`) is an **open LLM proxy** and must
+  be secured before that separate path is enabled; it is not part of the active
+  static Pages deploy. See
   [operations/security-audit](../operations/security-audit.md).

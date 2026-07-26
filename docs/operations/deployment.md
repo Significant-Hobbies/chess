@@ -5,9 +5,9 @@ description: How Chess Coach ships — Cloudflare Pages (manual), Vercel config,
 
 # Deployment
 
-The app is a static SPA plus one Vercel serverless function (`api/coach.ts`) for
-cloud AI. There are two deploy pathways in the repo; only Cloudflare Pages is
-currently used.
+The active deployment is a static SPA on Cloudflare Pages. The repository also
+contains a separate Vercel serverless function (`api/coach.ts`) for cloud AI,
+but that function is not included in the Pages artifact.
 
 ## Cloudflare Pages (active)
 
@@ -17,6 +17,9 @@ currently used.
 2. `cloudflare/wrangler-action@v3` runs
    `pages deploy dist/ --project-name=chess-9a0 --branch=<branch>`.
 3. Needs `CF_API_TOKEN` secret in the repo.
+
+The workflow uploads only `dist/`. Vite does not copy `api/coach.ts` there, so
+the Vercel-only open proxy is not a blocker for this static deployment.
 
 **Project:** `chess-9a0`. **Domain:** `chess.significanthobbies.com`.
 
@@ -31,19 +34,16 @@ Cross-Origin-Embedder-Policy: require-corp
 Cross-Origin-Opener-Policy: same-origin
 ```
 
-On Cloudflare Pages these are set via `_headers` or the dashboard — there is
-currently **no `_headers` file in the repo**.
-
-> **Unresolved:** confirm the COEP/COOP headers are actually served by the Pages
-> project. If the engine works on the live site, they are; if not, add a
-> `public/_headers` file. (The repo has `public/_redirects` for the `/api/ai`
-> rewrite but no `_headers`.)
+Cloudflare Pages reads these from `public/_headers`, which Vite copies to the
+root of `dist/`. Verify both headers on the production document after each
+deploy.
 
 ## Vercel (configured, status unclear)
 
 - `vercel.json` defines SPA rewrites: `/faq` → `/faq.html`, then filesystem
   handling, then catch-all to `/index.html`.
-- `api/coach.ts` is a Vercel serverless function (only works on Vercel).
+- `api/coach.ts` is a Vercel serverless function (only works on Vercel; it is
+  absent from the active Cloudflare Pages artifact).
 - `.vercel/` is gitignored. The security audit (commit b3db100) noted "confirm
   the Vercel deployment is paused/deleted if the project is inactive."
 
