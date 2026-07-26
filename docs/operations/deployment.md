@@ -16,7 +16,7 @@ but that function is not included in the Pages artifact.
 1. Checkout, pnpm install (frozen lockfile, `--ignore-scripts`), `pnpm build`.
 2. `cloudflare/wrangler-action@v3` runs
    `pages deploy dist/ --project-name=chess-9a0 --branch=<branch>`.
-3. Needs `CF_API_TOKEN` secret in the repo.
+3. Needs the `CF_API_TOKEN` secret and `CLOUDFLARE_ACCOUNT_ID` Actions variable.
 
 The workflow uploads only `dist/`. Vite does not copy `api/coach.ts` there, so
 the Vercel-only open proxy is not a blocker for this static deployment.
