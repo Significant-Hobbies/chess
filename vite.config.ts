@@ -9,6 +9,7 @@ export default defineConfig({
       input: {
         main: 'index.html',
         faq: 'faq.html',
+        changelog: 'changelog.html',
       },
     },
   },

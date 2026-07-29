@@ -6,6 +6,7 @@
 
 - [Home](https://chess.significanthobbies.com/): Play (SPA)
 - [FAQ](https://chess.significanthobbies.com/faq): Frequently asked questions about Chess Coach
+- [Changelog](https://chess.significanthobbies.com/changelog): Verified product updates
 
 ## Machine surfaces
 
