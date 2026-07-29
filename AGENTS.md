@@ -6,7 +6,8 @@ Significant Hobbies.
 
 > **Deep context lives in [`docs/`](docs/index.md).** This file is a bootloader —
 > read it, then jump to the relevant doc instead of re-deriving from code.
-> Current snapshot: [`STATUS.md`](STATUS.md). Human entry: [`README.md`](README.md).
+> Current/shipped product truth: [`PROJECT_STATUS.md`](PROJECT_STATUS.md).
+> Human entry: [`README.md`](README.md).
 
 ## Essential commands
 
@@ -70,8 +71,8 @@ Docs (Blume is fetched on demand, not a dependency):
 2. **One home per fact.** Link, don't duplicate. Don't re-explain what code or
    another doc already covers.
 3. **Mark unknowns explicitly** (`> **Unresolved:**`) — don't guess.
-4. **Update `STATUS.md`** when objective / active work / blockers / next steps
-   change.
+4. **Update `PROJECT_STATUS.md`** when durable current/shipped truth changes;
+   use GitHub Issues for all open work.
 5. **Prefer `docs/archive/<name>.md` over deletion** to preserve git rename
    history.
 6. **Run `./scripts/docs-validate.sh`** before committing doc changes; the
