@@ -123,7 +123,10 @@ export default function App() {
     setAIConfig(config)
   }, [])
 
-  if (window.location.pathname === '/changelog') {
+  if (
+    window.location.pathname === '/changelog' ||
+    window.location.pathname === '/changelog.html'
+  ) {
     return <Changelog />
   }
 
