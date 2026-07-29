@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Chess } from 'chess.js'
-import { Chessboard } from 'react-chessboard'
-import type { PieceDropHandlerArgs } from 'react-chessboard'
+import { Chessboard, defaultPieces } from 'react-chessboard'
+import type { PieceDropHandlerArgs, PieceRenderObject } from 'react-chessboard'
 import { Undo2, Lightbulb, RefreshCw, FlipVertical2 } from 'lucide-react'
 import { StockfishEngine } from '../lib/stockfish'
 import { DifficultyPicker, DIFFICULTY_CONFIGS, type DifficultyLevel } from './DifficultyPicker'
@@ -16,6 +16,35 @@ interface BestMoveArrow {
   from: string
   to: string
 }
+
+const PIECE_NAMES: Record<string, string> = {
+  P: 'pawn',
+  R: 'rook',
+  N: 'knight',
+  B: 'bishop',
+  Q: 'queen',
+  K: 'king',
+}
+
+const accessiblePieces = Object.fromEntries(
+  Object.entries(defaultPieces).map(([pieceType, Piece]) => [
+    pieceType,
+    (props) => {
+      const color = pieceType.startsWith('w') ? 'White' : 'Black'
+      const name = PIECE_NAMES[pieceType.slice(1)] ?? 'piece'
+      const square = props?.square ? ` on ${props.square}` : ''
+
+      return (
+        <span className="relative block h-full w-full">
+          <span className="sr-only">{`${color} ${name}${square}`}</span>
+          <span aria-hidden="true" className="block h-full w-full">
+            <Piece {...props} />
+          </span>
+        </span>
+      )
+    },
+  ]),
+) as PieceRenderObject
 
 function classifyMoveQuality(loss: number): MoveQuality {
   if (loss > 200) return 'blunder'
@@ -515,6 +544,7 @@ export function ChessGame({ aiConfig }: ChessGameProps) {
           <Chessboard
             options={{
               position: fen,
+              pieces: accessiblePieces,
               onPieceDrop,
               boardOrientation: orientation,
               arrows,

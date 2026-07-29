@@ -1,6 +1,6 @@
 # Chess Coach — PROJECT STATUS
 
-Last updated: 2026-07-26
+Last updated: 2026-07-29
 
 > Deep context lives in [`docs/`](docs/index.md). Update this file when durable
 > current or shipped product truth changes.
@@ -16,6 +16,8 @@ plain-language AI coaching. Personal learning project under Significant Hobbies.
 
 ## Timeline
 
+- **2026-07-29:** Added an owned `/changelog` with verified release outcomes and
+  direct GitHub Roadmap and Source links.
 - **2026-07-26:** Current static Cloudflare Pages product and agent surfaces
   verified and documented.
 
@@ -34,6 +36,7 @@ plain-language AI coaching. Personal learning project under Significant Hobbies.
   JSON-LD). SaaS Maker widgets + PostHog analytics.
 - Cloudflare Pages deploy (manual dispatch).
 - Tracked Cloudflare Pages COEP/COOP headers required by Stockfish WASM.
+- Owned editorial product changelog at `/changelog`.
 
 ## Work queue
 
