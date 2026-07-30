@@ -1,12 +1,27 @@
 # Chess Coach
 
-AI-coached chess practice in the browser.
+Browser-based chess practice against Stockfish 18 with optional, on-demand AI
+explanations.
 
-## Note for agents
+## What is included
 
-The app is a client SPA with little server-rendered copy. Use this brief and `/api/ai` (when deployed with a worker) rather than HTML shell scraping.
+- Six engine levels, configurable clocks, hints, undo, and board flip
+- Real-time evaluation and move-quality badges
+- Local game persistence with no account
+- Optional explanations from a configured cloud provider or a local development
+  bridge
+
+Stockfish runs locally in a Web Worker. The static production deployment does
+not expose the development-only AI proxy.
+
+## Public pages
+
+- [Play](https://chess.significanthobbies.com/)
+- [FAQ](https://chess.significanthobbies.com/faq)
+- [Changelog](https://chess.significanthobbies.com/changelog)
 
 ## Agent entrypoints
 
 - https://chess.significanthobbies.com/llms.txt
 - https://chess.significanthobbies.com/index.md
+- https://chess.significanthobbies.com/api/ai
