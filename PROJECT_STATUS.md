@@ -16,6 +16,8 @@ plain-language AI coaching. Personal learning project under Significant Hobbies.
 
 ## Timeline
 
+- **2026-07-31:** Enforced lint, TypeScript, build, and a managed-server
+  Playwright smoke test in CI.
 - **2026-07-29:** Added an owned `/changelog` with verified release outcomes and
   direct GitHub Roadmap and Source links.
 - **2026-07-26:** Current static Cloudflare Pages product and agent surfaces

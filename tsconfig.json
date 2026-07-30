@@ -11,10 +11,11 @@
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "types": ["vite/client"],
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "api", "vite.config.ts"]
+  "include": ["src", "api", "tests", "vite.config.ts", "playwright.config.ts"]
 }

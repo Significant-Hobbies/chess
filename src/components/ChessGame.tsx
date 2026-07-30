@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { Chess } from 'chess.js'
+import { Chess, type Move } from 'chess.js'
 import { Chessboard, defaultPieces } from 'react-chessboard'
 import type { PieceDropHandlerArgs, PieceRenderObject } from 'react-chessboard'
 import { Undo2, Lightbulb, RefreshCw, FlipVertical2 } from 'lucide-react'
@@ -128,17 +128,6 @@ export function ChessGame({ aiConfig }: ChessGameProps) {
   const [lastMoveQuality, setLastMoveQuality] = useState<MoveQuality | null>(null)
   const [lastMoveSan, setLastMoveSan] = useState<string | null>(null)
   const [isFetchingHint, setIsFetchingHint] = useState(false)
-  const [boardWidth, setBoardWidth] = useState(() => {
-    if (typeof window === 'undefined') return 480
-    const vw = window.innerWidth
-    if (vw < 768) {
-      // Mobile: full width minus p-3 padding (12px each side) + 8px buffer, capped at 560px
-      return Math.max(200, Math.min(vw - 24 - 8, 560))
-    } else {
-      // Desktop: subtract right panel (w-72=288px), left eval bar (~40px), gaps (32px), padding (24px), buffer (8px)
-      return Math.max(200, Math.min(vw - 288 - 40 - 32 - 24 - 8, 800))
-    }
-  })
   const [timeControl, setTimeControl] = useState(saved?.timeControl ?? 0)
   const [timeLeft, setTimeLeft] = useState(saved?.timeLeft ?? { white: 0, black: 0 })
 
@@ -150,8 +139,8 @@ export function ChessGame({ aiConfig }: ChessGameProps) {
   evalScoreRef.current = evalScore
   const orientationRef = useRef(orientation)
   orientationRef.current = orientation
-  const evalDebounceRef = useRef<ReturnType<typeof setTimeout>>()
-  const computerMoveTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
+  const evalDebounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  const computerMoveTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const centerColRef = useRef<HTMLDivElement>(null)
 
   // Persist game state to localStorage
@@ -173,23 +162,6 @@ export function ChessGame({ aiConfig }: ChessGameProps) {
   }, [])
 
   const { explanation, isStreaming, error: coachError, evaluate } = useChessCoach()
-
-  // ResizeObserver for accurate board sizing based on actual container width.
-  // Only fire on window resize, NOT on initial mount — the initial boardWidth
-  // from useState is already correct and firing immediately causes a CLS shift.
-  // No vh dependency — vh changes on mobile when URL bar shows/hides, causing CLS.
-  useEffect(() => {
-    const onResize = () => {
-      const vw = window.innerWidth
-      if (vw < 768) {
-        setBoardWidth(Math.max(200, Math.min(vw - 24 - 8, 560)))
-      } else {
-        setBoardWidth(Math.max(200, Math.min(vw - 288 - 40 - 32 - 24 - 8, 800)))
-      }
-    }
-    window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
-  }, [])
 
   // Init Stockfish engine
   useEffect(() => {
@@ -366,7 +338,7 @@ export function ChessGame({ aiConfig }: ChessGameProps) {
     const promotion = isPromoting ? 'q' : undefined
 
     const newGame = cloneGame(gameRef.current)
-    let move
+    let move: Move
     try {
       move = newGame.move({
         from: sourceSquare,

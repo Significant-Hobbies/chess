@@ -67,9 +67,9 @@ source of truth). There is **no automated docs deploy** yet.
 
 ## CI
 
-- `.github/workflows/ci.yml` — on push/PR to `main`/`master`: `pnpm install
-  --frozen-lockfile --ignore-scripts` then `pnpm build`. No tests, no lint, no
-  docs check in this workflow.
+- `.github/workflows/ci.yml` — on push/PR to `main`/`master`: install, lint,
+  typecheck, build, and run the Playwright smoke test against its managed Vite
+  server.
 - `.github/workflows/docs.yml` (added with this docs system) — on changes to
   `docs/`, `blume.config.ts`, or `scripts/docs-*`, runs `blume validate --strict`
   and `blume build` to catch broken links and unrenderable Markdown. Uses
