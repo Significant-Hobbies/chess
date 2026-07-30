@@ -48,14 +48,14 @@ export class StockfishEngine {
     if (line.startsWith('info') && line.includes('score cp')) {
       const cpMatch = line.match(/score cp (-?\d+)/)
       const depthMatch = line.match(/depth (\d+)/)
-      if (cpMatch) this.latestEval = parseInt(cpMatch[1])
-      if (depthMatch) this.latestDepth = parseInt(depthMatch[1])
+      if (cpMatch) this.latestEval = parseInt(cpMatch[1], 10)
+      if (depthMatch) this.latestDepth = parseInt(depthMatch[1], 10)
     }
     // Handle mate scores
     if (line.startsWith('info') && line.includes('score mate')) {
       const mateMatch = line.match(/score mate (-?\d+)/)
       if (mateMatch) {
-        const mateIn = parseInt(mateMatch[1])
+        const mateIn = parseInt(mateMatch[1], 10)
         this.latestEval = mateIn > 0 ? 10000 : -10000
       }
     }

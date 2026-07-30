@@ -17,6 +17,9 @@ git submodule update --init --recursive   # only for local AI CLI providers
 pnpm dev              # Vite + Express CLI bridge (local AI). Runs npm install in server/ on start.
 pnpm dev:frontend     # Vite only (no local AI)
 pnpm build            # Production build → dist/
+pnpm lint             # Biome correctness + suspicious-code rules
+pnpm typecheck        # TypeScript, no emit
+pnpm test             # Playwright smoke test with managed Vite server
 ```
 
 Docs (Blume is fetched on demand, not a dependency):
