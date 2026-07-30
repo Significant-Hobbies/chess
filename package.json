@@ -24,7 +24,10 @@
     "stockfish": "18.0.8"
   },
   "devDependencies": {
+    "@astrojs/mdx": "7.0.3",
+    "@astrojs/react": "6.0.1",
     "@playwright/test": "1.62.0",
+    "@shikijs/twoslash": "4.3.1",
     "@tailwindcss/vite": "4.3.3",
     "@types/react": "^19.2.17",
     "@types/react-dom": "19",
