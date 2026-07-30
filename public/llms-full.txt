@@ -20,6 +20,8 @@ The app is a client SPA with little server-rendered copy. Use this brief and `/a
 ## Product links
 
 - Home: https://chess.significanthobbies.com/ — Play (SPA)
+- FAQ: https://chess.significanthobbies.com/faq — Engine, coaching, and privacy questions
+- Changelog: https://chess.significanthobbies.com/changelog — Verified product updates
 
 ## Machine surfaces
 

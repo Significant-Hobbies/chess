@@ -17,10 +17,24 @@
       "md": "https://chess.significanthobbies.com/index.md",
       "kind": "spa",
       "description": "Product home"
+    },
+    {
+      "id": "faq",
+      "url": "https://chess.significanthobbies.com/faq",
+      "md": "https://chess.significanthobbies.com/faq.md",
+      "kind": "static",
+      "description": "Engine, coaching, privacy, and pricing questions"
+    },
+    {
+      "id": "changelog",
+      "url": "https://chess.significanthobbies.com/changelog",
+      "md": "https://chess.significanthobbies.com/changelog.md",
+      "kind": "static",
+      "description": "Verified reliability, discovery, and learning updates"
     }
   ],
   "auth": {
     "public": true,
-    "notes": "Auth-walled app routes are not agent-indexed unless listed here."
+    "notes": "The public game requires no account. The development-only AI proxy is excluded."
   }
 }

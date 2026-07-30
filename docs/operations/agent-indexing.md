@@ -19,7 +19,9 @@ mirror into these files.
 | `public/llms-full.txt` | Longer agent brief — product blurb + full surface list + fleet/contact. |
 | `public/api-ai.json` | JSON inventory of public surfaces (name, version, url, llms, sitemap, robots, markdown negotiation, auth notes). |
 | `public/index.md` | Markdown product brief (no JS) — the "markdown negotiation" surface. |
-| `public/sitemap.xml` | `/`, `/faq`, `/index.md`, `/llms.txt`. |
+| `public/faq.md` | Markdown counterpart for the public FAQ. |
+| `public/changelog.md` | Markdown counterpart for the public changelog. |
+| `public/sitemap.xml` | Public HTML routes only: `/`, `/faq`, `/changelog`. |
 | `public/robots.txt` | Allow all + sitemap + explicit allow for agent surfaces. |
 | `public/_redirects` | Cloudflare Pages rewrite: `/api/ai` → `/api-ai.json` (200). |
 | `public/fa7259e2e0d942f1a1267b344a75a143.txt` | IndexNow key file (Bing/Yandex URL submission). |

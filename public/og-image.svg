@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">Chess Coach</title>
+  <desc id="description">Play Stockfish with optional AI coaching</desc>
+  <rect width="1200" height="630" fill="#1a1a2e"/>
+  <rect x="70" y="70" width="1060" height="490" rx="28" fill="#20203a" stroke="#374151" stroke-width="4"/>
+  <text x="120" y="295" fill="#fbbf24" font-family="Georgia, serif" font-size="108">♞</text>
+  <text x="270" y="285" fill="#f3f4f6" font-family="system-ui, sans-serif" font-size="92" font-weight="700">Chess Coach</text>
+  <text x="276" y="372" fill="#d1d5db" font-family="system-ui, sans-serif" font-size="42">Play Stockfish with optional AI coaching</text>
+  <text x="276" y="452" fill="#9ca3af" font-family="system-ui, sans-serif" font-size="30">Local engine · Move feedback · No account</text>
+</svg>
