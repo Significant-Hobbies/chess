@@ -1,23 +1,17 @@
 import { useState } from 'react'
-import { X, Eye, EyeOff } from 'lucide-react'
+import { X } from 'lucide-react'
 import {
   type AIConfig,
   type AIProvider,
   getModels,
   loadAIConfig,
   saveAIConfig,
-  LOCAL_PROVIDERS,
 } from '../hooks/useAI'
 
 const PROVIDERS: { value: AIProvider; label: string }[] = [
-  { value: 'free-ai', label: 'Free AI Gateway' },
   { value: 'claude-code', label: 'Claude Code (local AI)' },
   { value: 'gemini-cli', label: 'Gemini CLI (local AI)' },
   { value: 'codex', label: 'Codex CLI (local AI)' },
-  { value: 'anthropic', label: 'Anthropic API' },
-  { value: 'openai', label: 'OpenAI API' },
-  { value: 'google', label: 'Google AI API' },
-  { value: 'deepseek', label: 'DeepSeek API' },
 ]
 
 interface AIConfigModalProps {
@@ -27,10 +21,8 @@ interface AIConfigModalProps {
 
 export function AIConfigModal({ onClose, onSave }: AIConfigModalProps) {
   const [config, setConfig] = useState<AIConfig>(() => loadAIConfig())
-  const [showKey, setShowKey] = useState(false)
   const [saved, setSaved] = useState(false)
 
-  const isLocal = LOCAL_PROVIDERS.has(config.provider)
   const models = getModels(config.provider)
 
   const handleProviderChange = (provider: AIProvider) => {
@@ -86,32 +78,10 @@ export function AIConfigModal({ onClose, onSave }: AIConfigModalProps) {
             </select>
           </div>
 
-          {isLocal ? (
-            <div className="bg-blue-900/30 border border-blue-700 rounded-lg p-3 text-sm text-blue-300">
-              Local AI providers don't need an API key. Make sure the CLI tool is installed and authenticated.
-            </div>
-          ) : (
-            <div className="flex flex-col gap-1.5">
-              <label className="text-sm text-gray-400">API Key</label>
-              <div className="relative">
-                <input
-                  type={showKey ? 'text' : 'password'}
-                  value={config.apiKey}
-                  onChange={(e) => { setConfig({ ...config, apiKey: e.target.value }); setSaved(false) }}
-                  placeholder="sk-..."
-                  className="w-full bg-gray-800 border border-gray-600 text-gray-100 rounded-lg px-3 py-2 pr-10 text-sm focus:outline-none focus:border-blue-500"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowKey(!showKey)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-200"
-                >
-                  {showKey ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
-              </div>
-              <p className="text-xs text-gray-500">Your key is sent through our server proxy — never directly to the provider from your browser.</p>
-            </div>
-          )}
+          <div className="bg-blue-900/30 border border-blue-700 rounded-lg p-3 text-sm text-blue-300">
+            Local AI providers do not need an API key. Run the local bridge and
+            make sure the selected CLI is installed and authenticated.
+          </div>
 
           <button
             onClick={handleSave}

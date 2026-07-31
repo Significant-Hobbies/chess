@@ -30,9 +30,9 @@ undo and the move list broke.
 **Tried:** calling OpenAI / Anthropic / Google directly from the browser.
 **Why it failed:** inconsistent CORS per provider, and Google requires the key in
 the URL query, which is worse client-side.
-**What we do instead:** the `api/coach.ts` serverless proxy normalizes the
-request server-side. See ADR-0002. (The proxy itself has an open security issue —
-that's a separate, current problem, not a failed approach.)
+**What we do instead:** hosted cloud-provider coaching is retired. Development
+coaching uses authenticated local CLIs through the loopback bridge. See the
+superseded ADR-0002.
 
 ## In-SPA FAQ route for SEO
 

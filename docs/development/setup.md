@@ -60,9 +60,8 @@ VITE_POSTHOG_HOST=https://us.i.posthog.com
 VITE_SAASMAKER_API_KEY=
 ```
 
-Cloud AI API keys are **not** env vars — the user enters them in the AI Config
-modal and they live in `localStorage` (`chess-coach-ai-config`). The serverless
-proxy receives them per request. See
+Hosted cloud-provider coaching is retired. The AI Config modal selects only a
+local CLI and model; provider API keys are neither requested nor stored. See
 [product/ai-coaching](../product/ai-coaching.md).
 
 ## Vite dev server quirks

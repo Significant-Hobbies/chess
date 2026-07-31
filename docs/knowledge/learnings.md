@@ -46,11 +46,11 @@ bar show/hide changes `vh` and causes CLS. The board container uses
 This exact bug shipped and was fixed in d056c08. Any new static `.html` page must
 be added to `vite.config.ts` input.
 
-## SSE parsing is per-provider
+## Keep maintenance-mode coaching local
 
-The cloud proxy streams upstream SSE unchanged, so the client must parse per
-provider (`CHUNK_PARSERS` in `useAI.ts`). Adding a cloud provider means adding a
-parser (or reusing `_openai` if it's OpenAI-compatible, as DeepSeek does).
+A hosted multi-provider proxy created authentication, rate-limit, key-handling,
+and deployment obligations without serving the maintained Pages product. The
+smaller durable boundary is local authenticated CLIs with normalized SSE.
 
 ## Husky pre-push lint is currently a no-op
 

@@ -16,8 +16,8 @@ app is a client-rendered SPA with little server-rendered copy.
 ## Decision
 
 `faq.html` is a standalone static page and a second Vite build input
-(`vite.config.ts` → `rollupOptions.input.faq`). `vercel.json` routes `/faq` to
-`/faq.html`. The FAQ is hand-authored HTML (Tailwind via CDN-free inline styles)
+(`vite.config.ts` → `rollupOptions.input.faq`). Cloudflare Pages serves the
+generated `/faq.html`. The FAQ is hand-authored HTML (Tailwind via CDN-free inline styles)
 with 15 AI-discoverable questions and `FAQPage` structured data; it is listed in
 `sitemap.xml` and linked from the SPA header.
 
