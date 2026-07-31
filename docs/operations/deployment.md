@@ -1,13 +1,12 @@
 ---
 title: Deployment
-description: How Chess Coach ships — Cloudflare Pages (manual), Vercel config, required headers, and the docs (Blume) build.
+description: How Chess Coach ships — Cloudflare Pages (manual), required headers, and the docs (Blume) build.
 ---
 
 # Deployment
 
-The active deployment is a static SPA on Cloudflare Pages. The repository also
-contains a separate Vercel serverless function (`api/coach.ts`) for cloud AI,
-but that function is not included in the Pages artifact.
+The only maintained deployment is a static SPA on Cloudflare Pages. Hosted AI
+proxying and the dormant Vercel path were retired on 2026-08-01.
 
 ## Cloudflare Pages (active)
 
@@ -18,8 +17,7 @@ but that function is not included in the Pages artifact.
    `pages deploy dist/ --project-name=chess-9a0 --branch=<branch>`.
 3. Needs the `CF_API_TOKEN` secret and `CLOUDFLARE_ACCOUNT_ID` Actions variable.
 
-The workflow uploads only `dist/`. Vite does not copy `api/coach.ts` there, so
-the Vercel-only open proxy is not a blocker for this static deployment.
+The workflow uploads only `dist/`; local CLI coaching is development-only.
 
 **Project:** `chess-9a0`. **Domain:** `chess.significanthobbies.com`.
 
@@ -37,19 +35,6 @@ Cross-Origin-Opener-Policy: same-origin
 Cloudflare Pages reads these from `public/_headers`, which Vite copies to the
 root of `dist/`. Verify both headers on the production document after each
 deploy.
-
-## Vercel (configured, status unclear)
-
-- `vercel.json` defines SPA rewrites: `/faq` → `/faq.html`, then filesystem
-  handling, then catch-all to `/index.html`.
-- `api/coach.ts` is a Vercel serverless function (only works on Vercel; it is
-  absent from the active Cloudflare Pages artifact).
-- `.vercel/` is gitignored. The security audit (commit b3db100) noted "confirm
-  the Vercel deployment is paused/deleted if the project is inactive."
-
-> **Unresolved:** whether a live Vercel deployment still exists. If it does, the
-> open LLM proxy (`api/coach.ts`) is exposed — see
-> [security-audit](security-audit.md).
 
 ## Docs site (Blume)
 

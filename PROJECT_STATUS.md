@@ -16,6 +16,9 @@ plain-language AI coaching. Personal learning project under Significant Hobbies.
 
 ## Timeline
 
+- **2026-08-01:** Retired the dormant Vercel deployment path and hosted LLM
+  proxy, removed its build dependency, and limited AI coaching to the local
+  authenticated CLI bridge. The active Cloudflare Pages product is unchanged.
 - **2026-07-31:** Enforced lint, TypeScript, build, and a managed-server
   Playwright smoke test in CI.
 - **2026-07-29:** Added an owned `/changelog` with verified release outcomes and
@@ -32,8 +35,8 @@ plain-language AI coaching. Personal learning project under Significant Hobbies.
 
 - Full Stockfish game (6 levels), eval bar, move quality badges, hints, undo,
   board flip, configurable clocks, localStorage persistence, responsive layout.
-- Multi-provider AI coaching code (Vercel-only cloud proxy + local CLI bridge);
-  the active Cloudflare Pages deploy is static and does not serve the proxy.
+- Optional AI coaching through the local authenticated CLI bridge in
+  development; the active Cloudflare Pages deploy remains static.
 - Agent/crawler surfaces (llms.txt, /api/ai, sitemap, robots, IndexNow, FAQ +
   JSON-LD). SaaS Maker widgets + PostHog analytics.
 - Cloudflare Pages deploy (manual dispatch).

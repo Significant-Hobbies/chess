@@ -6,7 +6,8 @@ description: Component map, data flow, state management, and the client/server s
 # Architecture Overview
 
 React 19 + TypeScript SPA built with Vite. No SSR. The chess engine runs entirely
-client-side in a Web Worker; AI coaching is the only networked feature.
+client-side in a Web Worker; optional AI coaching uses a local development
+bridge.
 
 ## Component map
 
@@ -22,7 +23,7 @@ src/
     MoveList.tsx                # Move history with quality badges
     ChessClock.tsx              # Countdown timer per player
     DifficultyPicker.tsx        # 6-level difficulty selector (Beginner → Max)
-    AIConfig.tsx                # Modal: provider, model, API key
+    AIConfig.tsx                # Modal: local CLI provider and model
     saasmaker-feedback.tsx      # SaaSMaker feedback/testimonials/changelog widgets
     posthog-provider.tsx        # PostHog analytics provider
     PageViewTracker.tsx         # Page view tracking
@@ -33,8 +34,6 @@ src/
     ai-prompts.ts               # System + per-move coaching prompt builder
     saasmaker.ts                # SaaSMaker SDK client init
 server/                         # git SUBMODULE — Express CLI bridge (dev only)
-api/
-  coach.ts                      # Vercel serverless fn — cloud AI proxy
 public/
   stockfish.js + .wasm          # engine assets served statically
   llms.txt, llms-full.txt, api-ai.json, index.md, sitemap.xml, robots.txt

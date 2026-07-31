@@ -1,11 +1,11 @@
 ---
 title: ADR-0002 — Cloud AI via a serverless proxy
-description: Why cloud AI providers are reached through api/coach.ts instead of directly from the browser.
+description: Historical decision for the retired hosted AI proxy.
 ---
 
 # ADR-0002 — Cloud AI via a serverless proxy
 
-**Status:** Accepted (with an open security blocker — see below)
+**Status:** Superseded on 2026-08-01 by hosted proxy retirement
 **Date:** 2026-07-17 (backfilled)
 
 ## Context
@@ -21,6 +21,13 @@ directly, but CORS and key exposure make that awkward.
 provider against an allowlist, and forwards to the correct upstream, streaming the
 upstream SSE response back to the client unchanged. The client (`useAI.ts`) keeps
 per-provider SSE parsers.
+
+## Superseded outcome
+
+The hosted proxy was never part of the maintained Cloudflare Pages product. It
+was removed rather than adding authentication, rate limiting, and another
+deployment surface to a maintenance-mode project. Local authenticated CLI
+coaching remains available during development.
 
 ## Consequences
 

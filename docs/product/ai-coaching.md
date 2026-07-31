@@ -1,6 +1,6 @@
 ---
 title: AI Coaching
-description: How AI coaching works — providers, streaming, prompt design, and the local-vs-cloud split.
+description: How optional local AI coaching works during development.
 ---
 
 # AI Coaching
@@ -11,33 +11,22 @@ Coach panel. Coaching is never auto-triggered on every move (cost + latency).
 
 ## Provider model
 
-There are two transport paths, decided by whether the selected provider is a
-"local" CLI or a cloud API. The split lives in [`src/hooks/useAI.ts`](https://github.com/Significant-Hobbies/chess/blob/main/src/hooks/useAI.ts).
+The maintained transport lives in [`src/hooks/useAI.ts`](https://github.com/Significant-Hobbies/chess/blob/main/src/hooks/useAI.ts).
 
 | Path | Provider set | Transport | Where it runs |
 | --- | --- | --- | --- |
 | **Local CLI** | `claude-code`, `codex`, `gemini-cli` | POST `/api/chat` → Express bridge spawns the CLI and streams SSE back | Dev only (`server/` submodule) |
-| **Cloud proxy** | `free-ai`, `openai`, `anthropic`, `google`, `deepseek` | POST `/api/coach` → Vercel serverless fn forwards to the upstream API | Vercel path only; not served by active Pages deploy |
-
-- `LOCAL_PROVIDERS` and `IS_LOCAL` (derived from `import.meta.env.DEV`) decide the
-  path. In production the local CLI path is unreachable (no Express bridge).
-- The active production deployment is static Cloudflare Pages, so `/api/coach`
-  is unavailable there. The separate cloud proxy is `api/coach.ts` — see
-  [operations/security-audit](../operations/security-audit.md): it currently
-  forwards user-supplied keys with **no auth and no rate limiting**.
+- `IS_LOCAL` (derived from `import.meta.env.DEV`) prevents coaching requests in
+  production, where no Express bridge exists.
+- Hosted cloud-provider proxying was retired on 2026-08-01 rather than adding a
+  second authenticated production service to this maintenance-mode project.
 - The Express bridge is a git submodule (`server/` →
   `github.com/sarthakagrawal927/cli-bridge.git`). `pnpm dev` and `pnpm server`
   run `npm install` inside it on demand.
 
 ## Streaming
 
-Both paths return Server-Sent Events. `useAI.ts` keeps a per-provider chunk parser
-map (`CHUNK_PARSERS`) because each upstream shapes its SSE deltas differently:
-
-- `anthropic` → `content_block_delta` → `delta.text`
-- `google` → `candidates[0].content.parts[0].text`
-- `_openai` (also used for DeepSeek, which is OpenAI-compatible) →
-  `choices[0].delta.content`
+The local bridge returns Server-Sent Events with normalized `text` chunks.
 
 An `AbortController` lets the user cancel an in-flight stream; aborting suppresses
 the error.
@@ -64,17 +53,11 @@ low and answers specific.
 
 ## Models offered
 
-The model list per provider is hardcoded in `MODELS` in `useAI.ts`. The default
-config (`loadAIConfig`) depends on `import.meta.env.DEV`: local dev → provider
-`claude-code`, model `claude-code-local`; production builds → provider
-`free-ai`, model `auto`. The active Pages deployment does not currently serve
-the Vercel proxy needed by that production default. Update the list there when
-adding or retiring models — it is not config-driven.
+The local model list is hardcoded in `MODELS` in `useAI.ts`. The default is
+`claude-code` with `claude-code-local`. Update the list there when adding or
+retiring local CLI adapters; it is not config-driven.
 
 ## Configuration persistence
 
-AI config (provider, model, apiKey) is stored in `localStorage` under
-`chess-coach-ai-config`. **The API key lives in the browser**, not the server —
-the serverless proxy receives it per request and forwards it upstream. This is
-inherent to the open-proxy design and is part of the security blocker in
-[security-audit](../operations/security-audit.md).
+AI config (local provider and model) is stored in `localStorage` under
+`chess-coach-ai-config`. Provider API keys are no longer accepted by the app.

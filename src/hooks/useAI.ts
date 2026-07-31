@@ -1,9 +1,8 @@
 import { useState, useCallback, useRef } from 'react'
 import { buildChessCoachPrompt, SYSTEM_PROMPT } from '../lib/ai-prompts'
 
-export type AIProvider = 'claude-code' | 'codex' | 'gemini-cli' | 'free-ai' | 'openai' | 'anthropic' | 'google' | 'deepseek'
+export type AIProvider = 'claude-code' | 'codex' | 'gemini-cli'
 
-export const LOCAL_PROVIDERS = new Set<AIProvider>(['claude-code', 'codex', 'gemini-cli'])
 const IS_LOCAL = import.meta.env.DEV
 
 export interface AIConfig {
@@ -18,11 +17,6 @@ const MODELS: Record<AIProvider, string[]> = {
   'claude-code': ['claude-code-local'],
   'codex': ['codex-local'],
   'gemini-cli': ['gemini-cli-local'],
-  'free-ai': ['auto', 'gemini-2.5-flash', 'groq-llama-70b', 'groq-qwen3-32b'],
-  openai: ['gpt-4.1-nano', 'gpt-4.1-mini', 'gpt-4.1', 'gpt-4o-mini', 'gpt-4o', 'o4-mini'],
-  anthropic: ['claude-haiku-4-5-20251001', 'claude-sonnet-4-5-20250929', 'claude-opus-4-6'],
-  google: ['gemini-2.5-flash', 'gemini-2.5-flash-lite', 'gemini-2.5-pro'],
-  deepseek: ['deepseek-chat', 'deepseek-reasoner'],
 }
 
 export function getModels(provider: AIProvider): string[] {
@@ -32,11 +26,20 @@ export function getModels(provider: AIProvider): string[] {
 export function loadAIConfig(): AIConfig {
   try {
     const raw = localStorage.getItem(AI_CONFIG_KEY)
-    if (raw) return JSON.parse(raw)
+    if (raw) {
+      const parsed = JSON.parse(raw) as Partial<AIConfig>
+      if (parsed.provider && Object.hasOwn(MODELS, parsed.provider)) {
+        const provider = parsed.provider as AIProvider
+        const models = MODELS[provider]
+        return {
+          provider,
+          apiKey: '',
+          model: models.includes(parsed.model ?? '') ? parsed.model! : models[0],
+        }
+      }
+    }
   } catch { }
-  return IS_LOCAL
-    ? { provider: 'claude-code' as AIProvider, apiKey: '', model: 'claude-code-local' }
-    : { provider: 'free-ai' as AIProvider, apiKey: '', model: 'auto' }
+  return { provider: 'claude-code', apiKey: '', model: 'claude-code-local' }
 }
 
 export function saveAIConfig(config: AIConfig) {
@@ -46,69 +49,6 @@ export function saveAIConfig(config: AIConfig) {
 interface AIMessage {
   role: 'user' | 'assistant'
   content: string
-}
-
-// SSE parsers per provider — the serverless proxy streams the upstream response as-is
-const CHUNK_PARSERS: Record<string, (line: string) => string | null> = {
-  anthropic: (line) => {
-    const json = JSON.parse(line.slice(6))
-    return json.type === 'content_block_delta' ? json.delta?.text ?? null : null
-  },
-  google: (line) => {
-    const json = JSON.parse(line.slice(6))
-    return json.candidates?.[0]?.content?.parts?.[0]?.text ?? null
-  },
-  _openai: (line) => {
-    const json = JSON.parse(line.slice(6))
-    return json.choices?.[0]?.delta?.content ?? null
-  },
-}
-
-async function streamCloudProxy(
-  config: AIConfig,
-  messages: AIMessage[],
-  systemContext: string,
-  onChunk: (text: string) => void,
-  signal: AbortSignal
-) {
-  const res = await fetch('/api/coach', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      provider: config.provider,
-      model: config.model,
-      apiKey: config.apiKey,
-      messages,
-      systemPrompt: systemContext,
-    }),
-    signal,
-  })
-
-  if (!res.ok) {
-    const err = await res.text()
-    throw new Error(`Coach API error: ${res.status} - ${err}`)
-  }
-
-  const parse = CHUNK_PARSERS[config.provider] || CHUNK_PARSERS._openai
-  const reader = res.body!.getReader()
-  const decoder = new TextDecoder()
-  let buffer = ''
-
-  while (true) {
-    const { done, value } = await reader.read()
-    if (done) break
-    buffer += decoder.decode(value, { stream: true })
-    const lines = buffer.split('\n')
-    buffer = lines.pop() || ''
-    for (const line of lines) {
-      if (line.startsWith('data: ') && line !== 'data: [DONE]') {
-        try {
-          const text = parse(line)
-          if (text) onChunk(text)
-        } catch { }
-      }
-    }
-  }
 }
 
 const LOCAL_TOOL_MAP: Partial<Record<AIProvider, string>> = {
@@ -190,8 +130,8 @@ export function useChessCoach() {
     setIsStreaming(true)
     setError(null)
 
-    if (!LOCAL_PROVIDERS.has(config.provider) && config.provider !== 'free-ai' && !config.apiKey) {
-      setError('No API key configured. Open AI Config (gear icon) to add your key.')
+    if (!IS_LOCAL) {
+      setError('AI coaching is available only in local development with an authenticated CLI.')
       setIsStreaming(false)
       return
     }
@@ -205,11 +145,7 @@ export function useChessCoach() {
     }
 
     try {
-      const streamFn = LOCAL_PROVIDERS.has(config.provider)
-        ? streamLocalAI
-        : streamCloudProxy
-
-      await streamFn(config, messages, systemContext, onChunk, abortRef.current.signal)
+      await streamLocalAI(config, messages, systemContext, onChunk, abortRef.current.signal)
     } catch (e: unknown) {
       const err = e as Error
       if (err.name !== 'AbortError') {
