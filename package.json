@@ -18,7 +18,7 @@
     "knip:strict": "knip --reporter symbols"
   },
   "dependencies": {
-    "@saas-maker/feedback": "^0.2.1",
+    "@saas-maker/feedback": "^0.4.0",
     "chess.js": "1.4.0",
     "lucide-react": "1.27.0",
     "posthog-js": "^1.407.3",
