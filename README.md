@@ -10,7 +10,8 @@ Play chess against Stockfish in the browser and request plain-language coaching 
 - Configurable chess clocks and automatic local game-state persistence.
 - Optional streaming coaching through supported local CLI tools during
   development. The live static Pages target does not serve a hosted AI proxy.
-- Responsive React interface with direct PostHog analytics and the SaaS Maker feedback widget.
+- Responsive React interface with direct PostHog analytics and an optional
+  caller-owned SaaS Maker feedback widget.
 
 ## Local development
 

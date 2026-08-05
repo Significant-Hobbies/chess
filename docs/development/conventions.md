@@ -50,8 +50,9 @@ which perspective they want and convert explicitly.
 ## Config / secrets
 
 - No secrets in code or env-committed files. `.env*` and `*.local` are gitignored.
-- `foundry.json` contains the SaaS Maker feedback **project key** (public-prefix,
-  low risk) and is committed intentionally.
+- The optional feedback widget accepts only a caller-owned
+  `VITE_FEEDBACK_INGESTION_URL`; it has no bundled credential or hosted SaaS
+  Maker API fallback.
 - The husky pre-push hook scans for common secret patterns; respect its excludes
   (tests, fixtures, `.example`).
 

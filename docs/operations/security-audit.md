@@ -14,8 +14,9 @@ description: Security audit of the chess repo — hosted proxy retirement and lo
 None found. No `.env`, `.pem`, `.key`, or service-account files in any commit.
 
 ## Credentials on Disk
-`.env.local` contains `VITE_SAASMAKER_API_KEY=pk_...` (public key prefix -- low risk).
-`.gitignore` covers `*.local` so this file is not tracked. No other credential files found.
+The optional feedback widget reads a caller-owned ingestion URL and does not
+ship a SaaS Maker API key. `.gitignore` covers `*.local` so local configuration
+is not tracked. No other credential files were found during the audit.
 
 ## Deployment
 The active Cloudflare Pages workflow uploads only the Vite `dist/` directory.

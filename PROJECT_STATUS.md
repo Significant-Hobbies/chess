@@ -1,6 +1,6 @@
 # Chess Coach — PROJECT STATUS
 
-Last updated: 2026-07-29
+Last updated: 2026-08-06
 
 > Deep context lives in [`docs/`](docs/index.md). Update this file when durable
 > current or shipped product truth changes.
@@ -12,10 +12,15 @@ plain-language AI coaching. Personal learning project under Significant Hobbies.
 
 ## Dependencies
 
-- Stockfish WASM, Vite, Cloudflare Pages, and optional AI coaching providers.
+- Stockfish WASM, Vite, Cloudflare Pages, optional local AI coaching providers,
+  and the optional `@saas-maker/feedback` client with a caller-owned ingestion
+  endpoint.
 
 ## Timeline
 
+- **2026-08-06:** Migrated the optional feedback widget to the package's
+  caller-owned ingestion URL contract and removed the retired hosted API-key
+  integration.
 - **2026-08-01:** Retired the dormant Vercel deployment path and hosted LLM
   proxy, removed its build dependency, and limited AI coaching to the local
   authenticated CLI bridge. The active Cloudflare Pages product is unchanged.
@@ -38,7 +43,7 @@ plain-language AI coaching. Personal learning project under Significant Hobbies.
 - Optional AI coaching through the local authenticated CLI bridge in
   development; the active Cloudflare Pages deploy remains static.
 - Agent/crawler surfaces (llms.txt, /api/ai, sitemap, robots, IndexNow, FAQ +
-  JSON-LD). SaaS Maker widgets + PostHog analytics.
+  JSON-LD), PostHog analytics, and an optional caller-owned feedback widget.
 - Cloudflare Pages deploy (manual dispatch).
 - Tracked Cloudflare Pages COEP/COOP headers required by Stockfish WASM.
 - Owned editorial product changelog at `/changelog`.
