@@ -24,7 +24,7 @@ src/
     ChessClock.tsx              # Countdown timer per player
     DifficultyPicker.tsx        # 6-level difficulty selector (Beginner → Max)
     AIConfig.tsx                # Modal: local CLI provider and model
-    saasmaker-feedback.tsx      # SaaSMaker feedback/testimonials/changelog widgets
+    saasmaker-feedback.tsx      # Optional caller-owned feedback widget
     posthog-provider.tsx        # PostHog analytics provider
     PageViewTracker.tsx         # Page view tracking
   hooks/
@@ -32,7 +32,6 @@ src/
   lib/
     stockfish.ts                # StockfishEngine — Web Worker wrapper with queue
     ai-prompts.ts               # System + per-move coaching prompt builder
-    saasmaker.ts                # SaaSMaker SDK client init
 server/                         # git SUBMODULE — Express CLI bridge (dev only)
 public/
   stockfish.js + .wasm          # engine assets served statically

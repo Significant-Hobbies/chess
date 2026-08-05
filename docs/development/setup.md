@@ -49,15 +49,13 @@ Docs-only commands (Blume is not a dependency; scripts fetch it on demand):
 ## Environment variables
 
 ```bash
-# .env.local (gitignored). Only PostHog vars are documented in .env.example:
+# .env.local (gitignored):
 VITE_POSTHOG_KEY=          # PostHog analytics key
 VITE_POSTHOG_HOST=https://us.i.posthog.com
 
-# Also read by the SaaSMaker widgets (src/lib/saasmaker.ts,
-# saasmaker-feedback.tsx) but NOT listed in .env.example. The committed
-# foundry.json already carries the SaaSMaker project key (public pk_ prefix),
-# so this is optional for local runs:
-VITE_SAASMAKER_API_KEY=
+# Optional caller-owned endpoint for the feedback widget. The widget stays
+# hidden when no endpoint is configured:
+VITE_FEEDBACK_INGESTION_URL=
 ```
 
 Hosted cloud-provider coaching is retired. The AI Config modal selects only a
