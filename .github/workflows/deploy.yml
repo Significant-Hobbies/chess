@@ -28,12 +28,14 @@ jobs:
       - run: pnpm build
 
       - name: Deploy to Cloudflare Pages
-        id: deploy
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
-          accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist/ --project-name=chess-9a0 --branch=${{ github.head_ref || github.ref_name }}
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+        run: >-
+          pnpm exec wrangler pages deploy dist/
+          --project-name=chess-9a0
+          --branch=${{ github.head_ref || github.ref_name }}
+          --commit-hash=${{ github.sha }}
 
       - name: Smoke production
         run: curl --fail --silent --show-error --location --output /dev/null --retry 5 --retry-delay 5 --max-time 20 https://chess.significanthobbies.com/

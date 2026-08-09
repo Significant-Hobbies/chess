@@ -11,6 +11,19 @@ export default defineConfig({
         faq: 'faq.html',
         changelog: 'changelog.html',
       },
+      output: {
+        manualChunks(id) {
+          if (id.includes('/posthog-js/')) {
+            return 'analytics'
+          }
+          if (id.includes('/react-chessboard/')) {
+            return 'chessboard'
+          }
+          if (id.includes('/react/') || id.includes('/react-dom/')) {
+            return 'react-core'
+          }
+        },
+      },
     },
   },
   server: {

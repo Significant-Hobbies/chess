@@ -44,6 +44,15 @@
     "knip": "^6.29.0",
     "tailwindcss": "^4.3.3",
     "typescript": "6.0.3",
-    "vite": "8.1.5"
+    "vite": "8.1.5",
+    "wrangler": "4.120.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "workerd"
+    ],
+    "overrides": {
+      "dompurify": "3.4.13"
+    }
   }
 }

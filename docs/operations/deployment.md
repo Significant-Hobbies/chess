@@ -13,8 +13,9 @@ proxying and the dormant Vercel path were retired on 2026-08-01.
 `.github/workflows/deploy.yml` — **manual only** (`workflow_dispatch`).
 
 1. Checkout, pnpm install (frozen lockfile, `--ignore-scripts`), `pnpm build`.
-2. `cloudflare/wrangler-action@v3` runs
-   `pages deploy dist/ --project-name=chess-9a0 --branch=<branch>`.
+2. The exact development dependency `wrangler@4.120.0` runs
+   `pages deploy dist/ --project-name=chess-9a0 --branch=<branch>
+   --commit-hash=<git-sha>`.
 3. Needs the `CF_API_TOKEN` secret and `CLOUDFLARE_ACCOUNT_ID` Actions variable.
 
 The workflow uploads only `dist/`; local CLI coaching is development-only.
