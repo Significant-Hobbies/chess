@@ -2,7 +2,7 @@ name: Docs
 
 # Validates the docs/ knowledge system: broken-link check + Blume render check.
 # Blume and its isolated Astro renderer are pinned in devDependencies. The
-# command pin is held in sync with package.json and scripts/docs-*.sh.
+# command pin is held in sync with package.json and the docs scripts.
 on:
   push:
     branches: [main, master]

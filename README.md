@@ -30,6 +30,9 @@ pnpm dev:frontend
 pnpm server
 pnpm build
 pnpm preview
+pnpm test
+pnpm test:coverage
+pnpm quality
 ```
 
 ## Architecture
@@ -43,7 +46,8 @@ pnpm preview
 ## Documentation
 
 - [AGENTS.md](AGENTS.md) — concise agent bootloader (purpose, commands, critical constraints, docs navigation).
-- [STATUS.md](STATUS.md) — current objective, active work, blockers, next steps.
+- [PROJECT_STATUS.md](PROJECT_STATUS.md) — durable current and shipped product truth.
+- [GitHub Issues](https://github.com/Significant-Hobbies/chess/issues) — open work and blockers.
 - [docs/](docs/index.md) — canonical knowledge system: product, architecture, decisions, development, operations, learnings. Rendered for the web by Blume (`blume.config.ts`); the Markdown is the source of truth.
 
 See [AGENTS.md](AGENTS.md) for the repository map and implementation conventions.

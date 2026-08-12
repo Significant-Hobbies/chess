@@ -20,14 +20,20 @@ pnpm build            # Production build → dist/
 pnpm lint             # Biome correctness + suspicious-code rules
 pnpm typecheck        # TypeScript, no emit
 pnpm test             # Playwright smoke test with managed Vite server
+pnpm test:coverage    # Chromium loaded-module coverage proof
+pnpm quality          # Full Fleet code-health and build gate
 ```
 
-Docs (Blume is fetched on demand, not a dependency):
+Docs (the exact Blume dev dependency provides the renderer):
 
 ```bash
 ./scripts/docs-validate.sh   # link validation (strict) — run before committing doc changes
 ./scripts/docs-build.sh      # Blume build → dist/ (separate from Vite build; don't run both at once)
 ```
+
+The quality gate uses changed-source formatting so legacy source is not broadly
+rewritten. Remove safe dead code before accepting exceptions, and lower any
+checked-in ceiling whenever the measured result improves.
 
 ## Critical constraints (don't learn these the hard way)
 

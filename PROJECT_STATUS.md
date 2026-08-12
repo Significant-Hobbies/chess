@@ -1,6 +1,6 @@
 # Chess Coach — PROJECT STATUS
 
-Last updated: 2026-08-06
+Last updated: 2026-08-12
 
 > Deep context lives in [`docs/`](docs/index.md). Update this file when durable
 > current or shipped product truth changes.
@@ -18,6 +18,12 @@ plain-language AI coaching. Personal learning project under Significant Hobbies.
 
 ## Timeline
 
+- **2026-08-12:** Adopted the Fleet code-health contract with changed-source
+  formatting, expanded Playwright smoke coverage and Chromium loaded-module
+  coverage, Knip unused-code and cycle analysis, Lizard complexity ceilings,
+  zero-duplication enforcement, dependency severity accounting, suppression
+  accounting, and repository hygiene. Removed the redundant checked-in
+  Astro/Blume docs toolchain while preserving the pinned on-demand docs path.
 - **2026-08-06:** Migrated the optional feedback widget to the package's
   caller-owned ingestion URL contract and removed the retired hosted API-key
   integration.
@@ -47,6 +53,9 @@ plain-language AI coaching. Personal learning project under Significant Hobbies.
 - Cloudflare Pages deploy (manual dispatch).
 - Tracked Cloudflare Pages COEP/COOP headers required by Stockfish WASM.
 - Owned editorial product changelog at `/changelog`.
+- Aggregate Fleet quality gate covering format, lint, types, browser smoke and
+  loaded-module coverage, unused code, complexity, duplication, dependency
+  risk/cycles, suppressions, production build, and repository hygiene.
 
 ## Work queue
 

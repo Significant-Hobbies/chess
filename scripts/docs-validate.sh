@@ -2,7 +2,7 @@
 # Validate the docs/ tree with Blume: link check (strict) + render check.
 #
 # Blume and its isolated Astro renderer are pinned in devDependencies. Keep the
-# command pin in sync with package.json and .github/workflows/docs.yml.
+# command pin in sync with package.json and the other docs scripts.
 #
 # Usage:
 #   ./scripts/docs-validate.sh          # internal links, strict
