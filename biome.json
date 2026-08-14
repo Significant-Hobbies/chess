@@ -6,12 +6,25 @@
       "src/**/*.tsx",
       "api/**/*.ts",
       "tests/**/*.ts",
+      "scripts/**/*.mjs",
       "vite.config.ts",
       "playwright.config.ts"
     ]
   },
   "formatter": {
-    "enabled": false
+    "enabled": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100,
+    "lineEnding": "lf"
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "jsxQuoteStyle": "double",
+      "semicolons": "asNeeded",
+      "trailingCommas": "es5"
+    }
   },
   "linter": {
     "enabled": true,

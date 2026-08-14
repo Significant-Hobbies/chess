@@ -4,47 +4,46 @@
 // it. Do not edit docs to satisfy Blume; edit Blume here if a rendering need
 // changes. See docs/index.md for the documentation maintenance rules.
 //
-// Blume is NOT a package dependency (to avoid touching the lockfile / frozen
-// installs). The scripts/docs-*.sh helpers and .github/workflows/docs.yml fetch
-// a pinned version on demand via `npx --yes blume@0.8.0`. Bump the pin in all
-// three places together once a version is vetted (>=7 days old).
+// Blume is pinned exactly in devDependencies because its isolated Astro build
+// imports blume/markdown from the project dependency graph. The scripts also
+// name that same version; bump the pin in lockstep once a version is vetted.
 //
 // Build output: `dist/` — same as the Vite build. The two are different sites;
 // never build both at once. See docs/operations/deployment.md.
-import { defineConfig } from "blume";
+import { defineConfig } from 'blume'
 
 export default defineConfig({
-  title: "Chess Coach Docs",
+  title: 'Chess Coach Docs',
   description:
     "Knowledge system for the Chess Coach repository — product, architecture, decisions, development, operations, and durable learnings.",
 
   content: {
-    root: "docs",
+    root: 'docs',
   },
 
   logo: {
     // Reuses the product favicon (public/favicon.svg). Blume inlines SVG and
     // follows currentColor for light/dark.
-    image: "/favicon.svg",
-    text: "Chess Coach",
-    href: "/",
+    image: '/favicon.svg',
+    text: 'Chess Coach',
+    href: '/',
   },
 
   github: {
-    owner: "Significant-Hobbies",
-    repo: "chess",
-    branch: "main",
+    owner: 'Significant-Hobbies',
+    repo: 'chess',
+    branch: 'main',
   },
 
   theme: {
     // Amber matches the in-app accent (#fbbf24) and the LCP shell in index.html.
-    accent: "amber",
-    radius: "md",
-    mode: "dark",
+    accent: 'amber',
+    radius: 'md',
+    mode: 'dark',
   },
 
   search: {
-    provider: "orama",
+    provider: 'orama',
   },
 
   markdown: {
@@ -55,8 +54,8 @@ export default defineConfig({
     },
     codeBlocks: {
       theme: {
-        light: "github-light",
-        dark: "github-dark",
+        light: 'github-light',
+        dark: 'github-dark',
       },
     },
   },
@@ -75,9 +74,9 @@ export default defineConfig({
   lastModified: true,
 
   deployment: {
-    output: "static",
+    output: 'static',
     // Unresolved: docs site domain. Placeholder is the app domain until a
     // dedicated docs subdomain or /docs path is decided. See STATUS.md.
-    site: "https://chess.significanthobbies.com",
+    site: 'https://chess.significanthobbies.com',
   },
-});
+})

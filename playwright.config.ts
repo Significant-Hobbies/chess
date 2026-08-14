@@ -1,11 +1,12 @@
-import { defineConfig } from '@playwright/test';
+import { defineConfig } from '@playwright/test'
 
-delete process.env.NO_COLOR;
+delete process.env.NO_COLOR
 
-const baseURL = 'http://127.0.0.1:5173';
+const baseURL = 'http://127.0.0.1:5173'
 
 export default defineConfig({
   testDir: './tests',
+  testIgnore: process.env.BROWSER_COVERAGE ? [] : ['coverage.spec.ts'],
   use: {
     baseURL,
   },
@@ -14,4 +15,4 @@ export default defineConfig({
     url: baseURL,
     reuseExistingServer: !process.env.CI,
   },
-});
+})

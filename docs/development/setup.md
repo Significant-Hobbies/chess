@@ -31,9 +31,12 @@ pnpm dev:frontend     # Vite only — no local AI bridge
 pnpm server           # Express CLI bridge only
 pnpm build            # Production build (Vite) → dist/
 pnpm preview          # Preview the production build
+pnpm test             # Managed-server Playwright smoke proof
+pnpm test:coverage    # Chromium loaded-module execution coverage
+pnpm quality          # Aggregate Fleet code-health and build gate
 ```
 
-Docs-only commands (Blume is not a dependency; scripts fetch it on demand):
+Docs-only commands (the exact Blume dev dependency provides the renderer):
 
 ```bash
 ./scripts/docs-dev.sh        # Blume dev server on docs/
