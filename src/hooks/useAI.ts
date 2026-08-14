@@ -15,7 +15,7 @@ const AI_CONFIG_KEY = 'chess-coach-ai-config'
 
 const MODELS: Record<AIProvider, string[]> = {
   'claude-code': ['claude-code-local'],
-  'codex': ['codex-local'],
+  codex: ['codex-local'],
   'gemini-cli': ['gemini-cli-local'],
 }
 
@@ -38,7 +38,7 @@ export function loadAIConfig(): AIConfig {
         }
       }
     }
-  } catch { }
+  } catch {}
   return { provider: 'claude-code', apiKey: '', model: 'claude-code-local' }
 }
 
@@ -53,7 +53,7 @@ interface AIMessage {
 
 const LOCAL_TOOL_MAP: Partial<Record<AIProvider, string>> = {
   'claude-code': 'claude',
-  'codex': 'codex',
+  codex: 'codex',
   'gemini-cli': 'gemini',
 }
 
@@ -141,7 +141,7 @@ export function useChessCoach() {
     const systemContext = SYSTEM_PROMPT
 
     const onChunk = (text: string) => {
-      setExplanation(prev => prev + text)
+      setExplanation((prev) => prev + text)
     }
 
     try {

@@ -1,5 +1,5 @@
 interface EvalBarProps {
-  eval: number  // centipawns, positive = white winning
+  eval: number // centipawns, positive = white winning
   orientation: 'white' | 'black'
   className?: string
   horizontal?: boolean
@@ -13,7 +13,12 @@ function formatEval(cp: number): string {
   return pawns >= 0 ? `+${pawns.toFixed(1)}` : pawns.toFixed(1)
 }
 
-export function EvalBar({ eval: evalScore, orientation, className = '', horizontal = false }: EvalBarProps) {
+export function EvalBar({
+  eval: evalScore,
+  orientation,
+  className = '',
+  horizontal = false,
+}: EvalBarProps) {
   // Clamp at ±1000cp for display purposes
   const clamped = Math.max(-1000, Math.min(1000, evalScore))
   // White percentage: 50% at 0, 100% at +1000, 0% at -1000
@@ -51,10 +56,11 @@ export function EvalBar({ eval: evalScore, orientation, className = '', horizont
 
   return (
     <div className={`flex flex-col items-center gap-1 ${className}`}>
-      <span className="text-xs font-mono text-gray-400">
-        {isWhiteAhead ? label : ''}
-      </span>
-      <div className="w-6 flex-1 rounded overflow-hidden relative bg-gray-800" style={{ minHeight: '200px' }}>
+      <span className="text-xs font-mono text-gray-400">{isWhiteAhead ? label : ''}</span>
+      <div
+        className="w-6 flex-1 rounded overflow-hidden relative bg-gray-800"
+        style={{ minHeight: '200px' }}
+      >
         {/* Dark portion (top) */}
         <div
           className="absolute top-0 left-0 right-0 bg-gray-800 transition-all duration-700 ease-in-out"
@@ -66,9 +72,7 @@ export function EvalBar({ eval: evalScore, orientation, className = '', horizont
           style={{ height: `${whiteHeightPct}%` }}
         />
       </div>
-      <span className="text-xs font-mono text-gray-400">
-        {!isWhiteAhead ? label : ''}
-      </span>
+      <span className="text-xs font-mono text-gray-400">{!isWhiteAhead ? label : ''}</span>
     </div>
   )
 }

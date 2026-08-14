@@ -43,10 +43,7 @@ export function AIConfigModal({ onClose, onSave }: AIConfigModalProps) {
       <div className="bg-gray-900 border border-gray-700 rounded-xl w-full max-w-md shadow-2xl">
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
           <h2 className="text-lg font-semibold text-gray-100">AI Coach Settings</h2>
-          <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-200 transition-colors"
-          >
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-200 transition-colors">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -60,7 +57,9 @@ export function AIConfigModal({ onClose, onSave }: AIConfigModalProps) {
               className="bg-gray-800 border border-gray-600 text-gray-100 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
             >
               {PROVIDERS.map((p) => (
-                <option key={p.value} value={p.value}>{p.label}</option>
+                <option key={p.value} value={p.value}>
+                  {p.label}
+                </option>
               ))}
             </select>
           </div>
@@ -73,14 +72,16 @@ export function AIConfigModal({ onClose, onSave }: AIConfigModalProps) {
               className="bg-gray-800 border border-gray-600 text-gray-100 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
             >
               {models.map((m) => (
-                <option key={m} value={m}>{m}</option>
+                <option key={m} value={m}>
+                  {m}
+                </option>
               ))}
             </select>
           </div>
 
           <div className="bg-blue-900/30 border border-blue-700 rounded-lg p-3 text-sm text-blue-300">
-            Local AI providers do not need an API key. Run the local bridge and
-            make sure the selected CLI is installed and authenticated.
+            Local AI providers do not need an API key. Run the local bridge and make sure the
+            selected CLI is installed and authenticated.
           </div>
 
           <button

@@ -41,12 +41,16 @@ function SiteHeader({ onOpenConfig }: { onOpenConfig?: () => void }) {
         <span className="text-2xl">♟</span>
         <div>
           <span className="block text-lg font-bold text-gray-100 leading-none">Chess Coach</span>
-          <span className="block text-xs text-gray-500 mt-0.5">Play vs Stockfish with AI coaching</span>
+          <span className="block text-xs text-gray-500 mt-0.5">
+            Play vs Stockfish with AI coaching
+          </span>
         </div>
       </a>
       <div className="flex items-center gap-3 sm:gap-4">
         <nav className="flex items-center gap-3 text-sm" aria-label="Site">
-          <a href="/faq" className="text-gray-400 hover:text-gray-200 transition-colors">FAQ</a>
+          <a href="/faq" className="text-gray-400 hover:text-gray-200 transition-colors">
+            FAQ
+          </a>
           <a href="/changelog" className="text-gray-400 hover:text-gray-200 transition-colors">
             Changelog
           </a>
@@ -82,8 +86,12 @@ function Changelog() {
             Meaningful improvements to browser-based chess practice, reliability, and learning.
           </p>
           <nav className="mt-6 flex flex-wrap gap-5 text-sm" aria-label="Project links">
-            <a className="text-amber-300 hover:text-amber-200" href={`${REPOSITORY}/issues`}>Roadmap</a>
-            <a className="text-amber-300 hover:text-amber-200" href={REPOSITORY}>Source</a>
+            <a className="text-amber-300 hover:text-amber-200" href={`${REPOSITORY}/issues`}>
+              Roadmap
+            </a>
+            <a className="text-amber-300 hover:text-amber-200" href={REPOSITORY}>
+              Source
+            </a>
           </nav>
         </header>
         <ol className="mt-12 space-y-5">
@@ -99,7 +107,9 @@ function Changelog() {
                 </time>
                 <h2 className="mt-2 text-xl font-semibold">{release.title}</h2>
                 <ul className="mt-3 list-disc space-y-2 pl-5 leading-7 text-gray-400">
-                  {release.outcomes.map((outcome) => <li key={outcome}>{outcome}</li>)}
+                  {release.outcomes.map((outcome) => (
+                    <li key={outcome}>{outcome}</li>
+                  ))}
                 </ul>
               </article>
             </li>
@@ -123,10 +133,7 @@ export default function App() {
     setAIConfig(config)
   }, [])
 
-  if (
-    window.location.pathname === '/changelog' ||
-    window.location.pathname === '/changelog.html'
-  ) {
+  if (window.location.pathname === '/changelog' || window.location.pathname === '/changelog.html') {
     return <Changelog />
   }
 
