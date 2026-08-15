@@ -55,9 +55,10 @@ export function DifficultyPicker({ difficulty, onChange, disabled }: DifficultyP
               disabled={disabled}
               className={`
                 px-2 py-1.5 rounded text-xs font-semibold border transition-colors
-                ${isActive
-                  ? `${LEVEL_COLORS[lvl]} text-white`
-                  : `bg-transparent ${LEVEL_COLORS_INACTIVE[lvl]}`
+                ${
+                  isActive
+                    ? `${LEVEL_COLORS[lvl]} text-white`
+                    : `bg-transparent ${LEVEL_COLORS_INACTIVE[lvl]}`
                 }
                 disabled:opacity-50 disabled:cursor-not-allowed
               `}

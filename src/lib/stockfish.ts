@@ -1,6 +1,6 @@
 export type StockfishResult = {
-  bestMove: string   // UCI format e.g. "e2e4"
-  eval: number       // centipawns (positive = white winning)
+  bestMove: string // UCI format e.g. "e2e4"
+  eval: number // centipawns (positive = white winning)
   depth: number
 }
 

@@ -41,7 +41,9 @@ function MoveChip({ move, moveNumber, color }: MoveChipProps) {
       )}
       <span className="text-gray-100 text-sm font-mono">{move.san}</span>
       <span className={`w-2 h-2 rounded-full flex-shrink-0 ${style.dot}`} title={style.label} />
-      <span className="text-gray-500 text-[10px] font-mono ml-auto">{formatEvalShort(move.evalAfter)}</span>
+      <span className="text-gray-500 text-[10px] font-mono ml-auto">
+        {formatEvalShort(move.evalAfter)}
+      </span>
     </div>
   )
 }
@@ -63,7 +65,9 @@ export function MoveList({ moves }: MoveListProps) {
 
   return (
     <div className="flex flex-col gap-1">
-      <div className="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-1">Move History</div>
+      <div className="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-1">
+        Move History
+      </div>
       <div className="overflow-y-auto max-h-48 flex flex-col gap-0.5 pr-1">
         {pairs.length === 0 ? (
           <div className="text-gray-500 text-sm italic">No moves yet</div>

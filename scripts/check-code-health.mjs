@@ -13,7 +13,7 @@ const productionPaths = ['src', 'vite.config.ts']
 const sourceExtensions = new Set(['.js', '.jsx', '.mjs', '.mts', '.ts', '.tsx'])
 
 const baselines = {
-  complexity: { violations: 0, maxCcn: 20, maxLength: 100, maxParams: 7 },
+  complexity: { violations: 0, maxCcn: 14, maxLength: 65, maxParams: 7 },
   duplication: { clones: 0, duplicatedLines: 0 },
   unused: {
     files: 0,

@@ -7,11 +7,12 @@ export function buildChessCoachPrompt(context: {
   playerColor: 'white' | 'black'
 }): string {
   const sign = context.playerColor === 'white' ? 1 : -1
-  const playerEvalBefore = (context.evalBefore * sign / 100).toFixed(1)
-  const playerEvalAfter = (context.evalAfter * sign / 100).toFixed(1)
-  const cpLoss = context.playerColor === 'white'
-    ? context.evalBefore - context.evalAfter
-    : context.evalAfter - context.evalBefore
+  const playerEvalBefore = ((context.evalBefore * sign) / 100).toFixed(1)
+  const playerEvalAfter = ((context.evalAfter * sign) / 100).toFixed(1)
+  const cpLoss =
+    context.playerColor === 'white'
+      ? context.evalBefore - context.evalAfter
+      : context.evalAfter - context.evalBefore
   const isBestMove = context.playerMove === context.bestMove || cpLoss <= 10
 
   return `Player (${context.playerColor}) played **${context.playerMove}**.
@@ -21,7 +22,8 @@ Player's eval before: ${playerEvalBefore} (positive = player is better)
 Player's eval after: ${playerEvalAfter}
 Centipawn loss: ${cpLoss}cp${context.bestMove && !isBestMove ? `\nStockfish preferred: ${context.bestMove}` : ''}
 
-${isBestMove
+${
+  isBestMove
     ? `This was the engine's top choice. Briefly explain (2 sentences) what makes this move strong in the position — what does it achieve strategically or tactically?`
     : `The player lost ~${cpLoss}cp. In 2-3 sentences: (1) What was the idea behind ${context.playerMove}? (2) Why is ${context.bestMove} better — what concrete threat or advantage does it create? Be specific about the position, not generic.`
 }`
