@@ -1,6 +1,6 @@
 ---
 title: Deployment
-description: How Chess Coach ships — Cloudflare Pages (manual), required headers, and the docs (Blume) build.
+description: How Chess Coach ships — Cloudflare Pages (manual) and required headers.
 ---
 
 # Deployment
@@ -37,29 +37,13 @@ Cloudflare Pages reads these from `public/_headers`, which Vite copies to the
 root of `dist/`. Verify both headers on the production document after each
 deploy.
 
-## Docs site (Blume)
-
-The `docs/` tree is rendered by Blume (presentation layer only — Markdown is the
-source of truth). There is **no automated docs deploy** yet.
-
-```bash
-./scripts/docs-build.sh      # → dist/ (separate from the Vite build)
-```
-
-> **Unresolved:** docs site domain. `blume.config.ts` sets
-> `deployment.site` to the known app domain as a placeholder; a dedicated
-> `docs.chess.significanthobbies.com` (or a `/docs` path on the main domain) is
-> TBD. Set `deployment.base` / `deployment.site` accordingly when decided.
-
 ## CI
 
 - `.github/workflows/ci.yml` — on push/PR to `main`/`master`: install, lint,
   typecheck, build, and run the Playwright smoke test against its managed Vite
   server.
-- `.github/workflows/docs.yml` (added with this docs system) — on changes to
-  `docs/`, `blume.config.ts`, or `scripts/docs-*`, runs `blume validate --strict`
-  and `blume build` to catch broken links and unrenderable Markdown. Uses
-  `npx --yes blume@0.8.0` (pinned; see [dependency notes](../knowledge/learnings.md)).
+- `.github/workflows/docs.yml` — on changes to `docs/`, runs the local link
+  checker to catch broken Markdown links.
 
 ## Dependency updates
 

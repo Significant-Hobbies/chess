@@ -7,8 +7,7 @@ description: Local setup, commands, environment variables, and the local-vs-clou
 
 ## Prerequisites
 
-- Node.js 22+ (CI uses 22; Blume docs build needs 22.12+ — see
-  [operations/deployment](../operations/deployment.md)).
+- Node.js 22+ (CI uses 22).
 - pnpm 10.32.1 (pinned in CI via `pnpm/action-setup@v4`).
 - For local AI providers: `claude`, `codex`, or `gemini` CLI installed and on
   `PATH`, plus the `server/` submodule checked out (see below).
@@ -36,18 +35,12 @@ pnpm test:coverage    # Chromium loaded-module execution coverage
 pnpm quality          # Aggregate Fleet code-health and build gate
 ```
 
-Docs-only commands (the exact Blume dev dependency provides the renderer):
+Docs validation:
 
 ```bash
-./scripts/docs-dev.sh        # Blume dev server on docs/
-./scripts/docs-build.sh      # Blume static build → dist/ (see note below)
-./scripts/docs-validate.sh   # Blume link validation (strict)
-./scripts/docs-check.sh      # Blume type-check
+./scripts/check-docs-links.sh   # local link validation
 ```
 
-> **`dist/` conflict:** both `pnpm build` (Vite) and `./scripts/docs-build.sh`
-> (Blume) write to `dist/`. They are different sites — run them in separate
-> steps/jobs, not simultaneously. Both outputs are gitignored.
 
 ## Environment variables
 

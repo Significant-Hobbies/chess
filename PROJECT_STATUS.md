@@ -22,8 +22,8 @@ plain-language AI coaching. Personal learning project under Significant Hobbies.
   formatting, expanded Playwright smoke coverage and Chromium loaded-module
   coverage, Knip unused-code and cycle analysis, Lizard complexity ceilings,
   zero-duplication enforcement, dependency severity accounting, suppression
-  accounting, and repository hygiene. Removed the redundant checked-in
-  Astro/Blume docs toolchain while preserving the pinned on-demand docs path.
+  accounting, and repository hygiene. Removed the redundant checked-in docs
+  toolchain.
 - **2026-08-06:** Migrated the optional feedback widget to the package's
   caller-owned ingestion URL contract and removed the retired hosted API-key
   integration.

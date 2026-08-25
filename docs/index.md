@@ -8,8 +8,7 @@ description: Knowledge system for the Chess Coach repository — product, archit
 Chess Coach is a browser chess app: play Stockfish (WASM) in the browser and get
 optional, plain-language AI coaching for any position. This `docs/` tree is the
 canonical, source-of-truth documentation for the repository. It is written for
-both humans and agents, and is rendered for the web by [Blume](https://github.com/Significant-Hobbies/chess/blob/main/blume.config.ts)
-(Blume is only the presentation layer — this Markdown is the source of truth).
+both humans and agents. The Markdown is the source of truth.
 
 > Repository bootloader: [`AGENTS.md`](https://github.com/Significant-Hobbies/chess/blob/main/AGENTS.md). Current snapshot:
 > [`STATUS.md`](https://github.com/Significant-Hobbies/chess/blob/main/STATUS.md). Human entry point: [`README.md`](https://github.com/Significant-Hobbies/chess/blob/main/README.md).
@@ -26,9 +25,8 @@ both humans and agents, and is rendered for the web by [Blume](https://github.co
 
 ## Documentation maintenance rules
 
-1. **Markdown in this tree is the source of truth.** Blume, the live site, and
-   `public/llms-full.txt` are derived presentation surfaces — never edit them to
-   correct a fact; fix the Markdown here instead.
+1. **Markdown in this tree is the source of truth.** Never edit derived
+   presentation surfaces to correct a fact; fix the Markdown here instead.
 2. **One canonical home per fact.** Don't re-explain something that already has a
    home here — link to it. Code-discoverable details (function signatures, exact
    dependency versions) are not duplicated; we document the *why* and the
@@ -48,5 +46,5 @@ both humans and agents, and is rendered for the web by [Blume](https://github.co
    `description`).
 2. Link it from the section's index and from this page's table if it's a top-level
    entry point.
-3. Run `./scripts/docs-validate.sh` to catch broken links before committing.
-4. The Blume CI workflow (`.github/workflows/docs.yml`) re-validates on push.
+3. Run `./scripts/check-docs-links.sh` to catch broken links before committing.
+4. The docs CI workflow (`.github/workflows/docs.yml`) re-validates on push.

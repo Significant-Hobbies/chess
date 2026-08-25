@@ -48,6 +48,6 @@ pnpm quality
 - [AGENTS.md](AGENTS.md) — concise agent bootloader (purpose, commands, critical constraints, docs navigation).
 - [PROJECT_STATUS.md](PROJECT_STATUS.md) — durable current and shipped product truth.
 - [GitHub Issues](https://github.com/Significant-Hobbies/chess/issues) — open work and blockers.
-- [docs/](docs/index.md) — canonical knowledge system: product, architecture, decisions, development, operations, learnings. Rendered for the web by Blume (`blume.config.ts`); the Markdown is the source of truth.
+- [docs/](docs/index.md) — canonical knowledge system: product, architecture, decisions, development, operations, and learnings. The Markdown is the source of truth.
 
 See [AGENTS.md](AGENTS.md) for the repository map and implementation conventions.

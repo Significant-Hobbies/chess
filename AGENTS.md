@@ -24,11 +24,10 @@ pnpm test:coverage    # Chromium loaded-module coverage proof
 pnpm quality          # Full Fleet code-health and build gate
 ```
 
-Docs (the exact Blume dev dependency provides the renderer):
+Docs:
 
 ```bash
-./scripts/docs-validate.sh   # link validation (strict) — run before committing doc changes
-./scripts/docs-build.sh      # Blume build → dist/ (separate from Vite build; don't run both at once)
+./scripts/check-docs-links.sh   # local link validation — run before committing doc changes
 ```
 
 The quality gate uses changed-source formatting so legacy source is not broadly
@@ -75,8 +74,8 @@ checked-in ceiling whenever the measured result improves.
 
 ## Documentation maintenance rules
 
-1. **Markdown in `docs/` is the source of truth.** Blume, the live site, and
-   `public/llms-full.txt` are derived presentation — fix facts here, not there.
+1. **Markdown in `docs/` is the source of truth.** Fix documented facts here,
+   not in derived presentation surfaces.
 2. **One home per fact.** Link, don't duplicate. Don't re-explain what code or
    another doc already covers.
 3. **Mark unknowns explicitly** (`> **Unresolved:**`) — don't guess.
@@ -84,7 +83,7 @@ checked-in ceiling whenever the measured result improves.
    use GitHub Issues for all open work.
 5. **Prefer `docs/archive/<name>.md` over deletion** to preserve git rename
    history.
-6. **Run `./scripts/docs-validate.sh`** before committing doc changes; the
+6. **Run `./scripts/check-docs-links.sh`** before committing doc changes; the
    `.github/workflows/docs.yml` CI re-validates on push.
 
 ## Safety constraints (repo-wide)

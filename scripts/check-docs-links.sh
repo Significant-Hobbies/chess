@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 # Lightweight markdown link checker for docs/ + AGENTS.md + STATUS.md + README.md.
 #
-# Verifies that relative links to files within the repo resolve. Does NOT check
-# external URLs (use ./scripts/docs-validate.sh --external for that) and does NOT
-# require Blume or network access — intended for fast pre-commit feedback.
+# Verifies that relative links to files within the repo resolve. It does not
+# check external URLs and is intended for fast pre-commit feedback.
 #
 # Exits non-zero on any broken local link.
 set -euo pipefail
@@ -11,7 +10,10 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
-mapfile -t FILES < <(find docs AGENTS.md STATUS.md README.md -type f \( -name '*.md' -o -name '*.mdx' \) 2>/dev/null)
+FILES=()
+while IFS= read -r file; do
+  FILES+=("$file")
+done < <(find docs AGENTS.md STATUS.md README.md -type f \( -name '*.md' -o -name '*.mdx' \) 2>/dev/null)
 
 broken=0
 for f in "${FILES[@]}"; do

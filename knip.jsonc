@@ -2,17 +2,10 @@
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "project": ["**/*.{ts,tsx,js,jsx,mjs,cjs,mts}"],
   "ignore": [
-    // Blume is pinned and fetched on demand by the docs scripts.
-    "blume.config.ts",
     "public/stockfish.js"
   ],
   "ignoreDependencies": [
     // Child-process/CSS/public-WASM boundaries are not visible in the module graph.
-    "@astrojs/mdx",
-    "@astrojs/react",
-    "@shikijs/twoslash",
-    "astro",
-    "blume",
     "jscpd",
     "stockfish"
   ]

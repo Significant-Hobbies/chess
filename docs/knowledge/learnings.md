@@ -64,11 +64,3 @@ The `dev` and `server` scripts shell out to `cd server && npm install --silent`
 before starting the bridge. This is slow on first run and noisy after. It's
 intentional so the submodule works without a separate install step, but it
 assumes network access on dev start.
-
-## Blume version pinning (docs)
-
-Blume is fetched on demand by the docs scripts via `npx --yes blume@0.8.0`.
-`0.8.0` is pinned (not `latest`) per the 7-day-vetting dependency rule — at time
-of writing, the newest Blume (`1.0.4`) was <7 days old. Bump the pin in all
-`scripts/docs-*.sh` and `.github/workflows/docs.yml` together once a version is
-vetted.
