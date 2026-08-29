@@ -1,0 +1,41 @@
+{
+  "$schema": "fleet.landing-audit.v1",
+  "project": "chess",
+  "priority": "P4",
+  "decision": "Dropped",
+  "auditedAt": "2026-08-29",
+  "candidateUrl": "https://supplemental-hundreds-trailer-classical.trycloudflare.com/",
+  "productionUrl": "https://chess.significanthobbies.com/",
+  "releaseState": "Released and verified on the canonical production domain at commit 878446088d57b43c88c3a985346822be5f2b9d07. CI, Cloudflare Pages deployment, and production smoke all passed; deploy parity confirms the current main SHA.",
+  "implementationAction": "preserve",
+  "migrationCandidate": false,
+  "deferredMigrationCandidates": [],
+  "gates": {
+    "contentPurpose": {
+      "score": 97,
+      "status": "pass",
+      "evidence": "The candidate states the retained experiment's actual job: play Stockfish, inspect objective evaluation and move quality, then replay the idea. It clearly separates public engine feedback from development-only local AI explanations and says the public app accepts no provider keys. The standalone FAQ was rewritten around the same verified boundary; stale cloud-provider, API-key, pricing, and comparison claims are gone."
+    },
+    "designQuality": {
+      "score": 93,
+      "status": "pass",
+      "evidence": "The purpose-built board is coherent and useful rather than generic: purpose loop, evaluation, responsive board, controls, clocks, difficulty, coach state, and move history form a clear practice workbench. A centered Start practice gate now explains the engine cost and preserves an immediate board preview. Exact 390, 768, and 1440 pixel checks found zero overflow and no browser errors; one project strip and one Ask AI footer load under cross-origin isolation through CORS mode."
+    },
+    "seo": {
+      "score": 96,
+      "status": "pass",
+      "evidence": "The latest candidate passes all 14 critical homepage checks with a 50-character title, 153-character description, canonical, social metadata, JSON-LD, direct H1, two no-JavaScript H2 sections, and no broken homepage links. The rewritten FAQ has visible questions aligned to its FAQPage JSON-LD rather than search-shaped comparison copy. The sole advisory is an intentionally lean SPA shell; its three-page sitemap has zero errors, redirects, or orphan candidates."
+    },
+    "geo": {
+      "score": 100,
+      "status": "pass",
+      "evidence": "The production host remains S-tier 100 with llms.txt, /api/ai, homepage Markdown, robots policy, crawler access, sitemap, JSON-LD, and complete three-surface catalog integrity. Candidate agent prose now reflects the local-development-only coaching boundary."
+    },
+    "performance": {
+      "score": 93,
+      "status": "pass",
+      "evidence": "PSI Swarm completed five successful runs in each of four production-equivalent profiles through the gzip-enabled Cloudflare Tunnel. P75 Lighthouse performance scores were 93 on slow 3G and 100 on mid mobile, fast mobile, and desktop; corresponding P75 LCP was 2.83 s, 1.45 s, 707 ms, and 426 ms. The coverage-weighted verdict was 1.07 s LCP, 0.000 CLS, and 1 ms TBT. The approximately 5.5 MiB Stockfish payload remains absent from the initial request graph and loads only after Start practice. The previous score of 88 came from an uncompressed localhost response and did not represent the production delivery path."
+    }
+  },
+  "minimumObserved": 93
+}
