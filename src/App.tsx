@@ -42,7 +42,7 @@ function SiteHeader({ onOpenConfig }: { onOpenConfig?: () => void }) {
         <div>
           <span className="block text-lg font-bold text-gray-100 leading-none">Chess Coach</span>
           <span className="block text-xs text-gray-500 mt-0.5">
-            Play vs Stockfish with AI coaching
+            Stockfish practice with move feedback
           </span>
         </div>
       </a>
@@ -120,6 +120,41 @@ function Changelog() {
   )
 }
 
+function PracticeLoop() {
+  return (
+    <section
+      className="border-b border-gray-800 bg-gray-950/35 px-4 py-5"
+      aria-labelledby="practice-loop-title"
+    >
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div className="max-w-2xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-amber-300">
+            Browser chess practice · retained experiment
+          </p>
+          <h1
+            id="practice-loop-title"
+            className="mt-1 text-2xl font-bold tracking-tight text-gray-100 sm:text-3xl"
+          >
+            Play a move. Understand it. Try the idea again.
+          </h1>
+          <p className="mt-2 max-w-[68ch] text-sm leading-6 text-gray-400">
+            Stockfish supplies the public evaluation and move quality. Optional natural-language
+            coaching works only with the local development bridge; it does not replace the engine.
+          </p>
+        </div>
+        <ol className="grid grid-cols-3 gap-px overflow-hidden rounded-lg border border-gray-800 bg-gray-800 text-xs text-gray-400 lg:w-[32rem]">
+          {['Play Stockfish', 'Inspect the evaluation', 'Ask, then replay'].map((step, index) => (
+            <li key={step} className="bg-[#1a1a2e] px-3 py-3">
+              <span className="block text-[10px] font-semibold text-amber-300">0{index + 1}</span>
+              <strong className="mt-2 block font-medium text-gray-200">{step}</strong>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  )
+}
+
 export default function App() {
   const [showAIConfig, setShowAIConfig] = useState(false)
 
@@ -139,7 +174,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen" style={{ background: '#1a1a2e' }}>
-      <SiteHeader onOpenConfig={() => setShowAIConfig(true)} />
+      <SiteHeader onOpenConfig={import.meta.env.DEV ? () => setShowAIConfig(true) : undefined} />
+
+      <PracticeLoop />
 
       {/* Main content */}
       <main className="p-3 flex justify-center">

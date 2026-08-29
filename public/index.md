@@ -8,11 +8,11 @@ explanations.
 - Six engine levels, configurable clocks, hints, undo, and board flip
 - Real-time evaluation and move-quality badges
 - Local game persistence with no account
-- Optional explanations from a configured cloud provider or a local development
-  bridge
+- Optional explanations from authenticated local CLI tools through the
+  development bridge
 
 Stockfish runs locally in a Web Worker. The static production deployment does
-not expose the development-only AI proxy.
+not expose the development-only AI bridge or accept provider keys.
 
 ## Public pages
 

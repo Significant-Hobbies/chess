@@ -26,15 +26,15 @@ centipawn loss to label it Best, Good, Inaccuracy, Mistake, or Blunder.
 
 The user explicitly requests an explanation from the Coach panel. The prompt
 includes the position, played move, evaluation change, and engine alternative.
-Cloud providers require the user's own configured key. Local CLI providers are
-available only through the development bridge and are not part of the static
-public deployment.
+Natural-language explanations are available only through authenticated local
+CLI tools and the development bridge. They are not part of the static public
+deployment.
 
 ## Is Chess Coach free?
 
-The game, Stockfish analysis, evaluation bar, hints, and move-quality feedback
-are free and require no account. A cloud AI provider may charge for explanations
-requested with a user-supplied key.
+The public game, Stockfish analysis, evaluation bar, hints, and move-quality
+feedback are free and require no account. The app does not sell a subscription
+or accept cloud-provider API keys.
 
 ## Can a game be paused?
 

@@ -1,12 +1,12 @@
 # Chess Coach — full agent brief
 
-AI-coached chess game for practice with coaching feedback.
+Browser chess practice against Stockfish with move feedback and optional local-development AI explanations.
 
 ## Index
 
 # Chess Coach
 
-AI-coached chess practice in the browser.
+Stockfish practice in the browser. The public app provides engine evaluation and move feedback; natural-language explanations require the local development bridge.
 
 ## Note for agents
 

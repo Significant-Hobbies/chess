@@ -33,6 +33,9 @@ export default defineConfig({
       'Cross-Origin-Opener-Policy': 'same-origin',
     },
   },
+  preview: {
+    allowedHosts: ['.trycloudflare.com'],
+  },
   optimizeDeps: {
     exclude: ['stockfish'],
   },

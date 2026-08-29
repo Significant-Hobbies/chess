@@ -132,6 +132,7 @@ export function ChessGame({ aiConfig }: ChessGameProps) {
   const [isFetchingHint, setIsFetchingHint] = useState(false)
   const [timeControl, setTimeControl] = useState(saved?.timeControl ?? 0)
   const [timeLeft, setTimeLeft] = useState(saved?.timeLeft ?? { white: 0, black: 0 })
+  const [engineStatus, setEngineStatus] = useState<'idle' | 'loading' | 'ready' | 'error'>('idle')
 
   const engineRef = useRef<StockfishEngine | null>(null)
   const engineReadyRef = useRef(false)
@@ -168,22 +169,40 @@ export function ChessGame({ aiConfig }: ChessGameProps) {
 
   const { explanation, isStreaming, error: coachError, evaluate } = useChessCoach()
 
-  // Init Stockfish engine
-  useEffect(() => {
+  const startEngine = useCallback(async () => {
+    if (engineReadyRef.current || engineStatus === 'loading') return
+
+    engineRef.current?.destroy()
+    engineReadyRef.current = false
+    setEngineStatus('loading')
+
     const engine = new StockfishEngine()
     engineRef.current = engine
-    engine
-      .init()
-      .then(() => {
-        engineReadyRef.current = true
-        engine.getEval(new Chess().fen()).then((result) => {
-          setEvalScore(result.eval)
-        })
-      })
-      .catch(console.error)
 
+    try {
+      await engine.init()
+      if (engineRef.current !== engine) return
+
+      engineReadyRef.current = true
+      setEngineStatus('ready')
+      const result = await engine.getEval(gameRef.current.fen())
+      setEvalSmooth(result.eval)
+    } catch (error) {
+      console.error('Stockfish startup error:', error)
+      if (engineRef.current === engine) {
+        engine.destroy()
+        engineRef.current = null
+        engineReadyRef.current = false
+        setEngineStatus('error')
+      }
+    }
+  }, [engineStatus, setEvalSmooth])
+
+  // Keep the 5.5 MiB engine off the landing path until the visitor starts a game.
+  useEffect(() => {
     return () => {
-      engine.destroy()
+      engineRef.current?.destroy()
+      engineRef.current = null
       engineReadyRef.current = false
     }
   }, [])
@@ -481,10 +500,11 @@ export function ChessGame({ aiConfig }: ChessGameProps) {
 
   // When orientation changes, trigger computer move if it's computer's turn
   useEffect(() => {
+    if (engineStatus !== 'ready') return
     if (!game.isGameOver() && !isPlayerTurn(game) && !isComputerThinking) {
       makeComputerMove(game)
     }
-  }, [orientation]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [engineStatus, orientation]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const arrows = bestMoveArrow
     ? [
@@ -496,7 +516,7 @@ export function ChessGame({ aiConfig }: ChessGameProps) {
       ]
     : []
 
-  const canInteract = !isComputerThinking && !gameOver && isPlayerTurn()
+  const canInteract = engineStatus === 'ready' && !isComputerThinking && !gameOver && isPlayerTurn()
   const computerColor = orientation === 'white' ? 'black' : 'white'
 
   return (
@@ -543,7 +563,7 @@ export function ChessGame({ aiConfig }: ChessGameProps) {
 
         {/* Chess board — CSS-sized with contain:strict to isolate from layout */}
         <div
-          className="bg-gray-800 rounded-lg"
+          className="relative bg-gray-800 rounded-lg"
           style={{
             width: 'min(100vw - 32px, 560px)',
             height: 'min(100vw - 32px, 560px)',
@@ -565,6 +585,33 @@ export function ChessGame({ aiConfig }: ChessGameProps) {
               },
             }}
           />
+          {engineStatus !== 'ready' && (
+            <div className="absolute inset-0 grid place-items-center rounded-lg bg-gray-950/72 p-6 text-center backdrop-blur-[2px]">
+              <div className="max-w-xs rounded-xl border border-gray-700 bg-gray-900/95 p-5 shadow-2xl shadow-black/40">
+                <p className="text-base font-semibold text-gray-100">The board is ready.</p>
+                <p className="mt-2 text-sm leading-6 text-gray-400">
+                  Start practice when you want to load the browser-based Stockfish engine.
+                </p>
+                {engineStatus === 'error' && (
+                  <p className="mt-2 text-sm text-red-300" role="alert">
+                    Stockfish could not start. You can retry without reloading the page.
+                  </p>
+                )}
+                <button
+                  type="button"
+                  onClick={startEngine}
+                  disabled={engineStatus === 'loading'}
+                  className="mt-4 inline-flex min-h-11 items-center justify-center rounded-lg bg-amber-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-amber-500 disabled:cursor-wait disabled:opacity-70"
+                >
+                  {engineStatus === 'loading'
+                    ? 'Loading Stockfish…'
+                    : engineStatus === 'error'
+                      ? 'Retry Stockfish'
+                      : 'Start practice'}
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Player clock (you, below board) */}

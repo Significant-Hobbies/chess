@@ -1,6 +1,6 @@
 # Chess Coach
 
-> AI-coached chess game for practice with coaching feedback.
+> Browser chess practice against Stockfish with move feedback and optional local-development AI explanations.
 
 ## Product
 
