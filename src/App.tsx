@@ -42,6 +42,21 @@ function GithubIcon() {
   )
 }
 
+function RepoLink({ className }: { className: string }) {
+  return (
+    <a
+      href={REPOSITORY}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="GitHub repository"
+      title="GitHub repository"
+      className={className}
+    >
+      <GithubIcon />
+    </a>
+  )
+}
+
 function SiteHeader({ onOpenConfig }: { onOpenConfig?: () => void }) {
   return (
     <header className="border-b border-gray-800 px-4 py-3 flex items-center justify-between">
@@ -62,16 +77,7 @@ function SiteHeader({ onOpenConfig }: { onOpenConfig?: () => void }) {
           <a href="/changelog" className="text-gray-400 hover:text-gray-200 transition-colors">
             Changelog
           </a>
-          <a
-            href={REPOSITORY}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub repository"
-            title="GitHub repository"
-            className="flex items-center text-gray-400 hover:text-gray-200 transition-colors"
-          >
-            <GithubIcon />
-          </a>
+          <RepoLink className="flex items-center text-gray-400 hover:text-gray-200 transition-colors" />
         </nav>
         {onOpenConfig ? (
           <button
@@ -107,16 +113,7 @@ function Changelog() {
             <a className="text-amber-300 hover:text-amber-200" href={`${REPOSITORY}/issues`}>
               Roadmap
             </a>
-            <a
-              className="flex items-center text-amber-300 hover:text-amber-200"
-              href={REPOSITORY}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub repository"
-              title="GitHub repository"
-            >
-              <GithubIcon />
-            </a>
+            <RepoLink className="flex items-center text-amber-300 hover:text-amber-200" />
           </nav>
         </header>
         <ol className="mt-12 space-y-5">
